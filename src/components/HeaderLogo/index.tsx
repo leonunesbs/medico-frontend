@@ -145,7 +145,7 @@ export const HeaderLogo: React.FunctionComponent<IHeaderLogo.IProps> = ({
     <NextLink href="/" as="/">
       <IconButton
         bgColor="transparent"
-        p={0}
+        p={1}
         _active={{}}
         _hover={{}}
         aria-label="header-logo"
