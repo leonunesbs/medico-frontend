@@ -1,8 +1,26 @@
 import React from 'react';
-import { Layout } from '@/components';
-import { Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { CallToActionButton, Layout } from '@/components';
+import {
+  Flex,
+  Heading,
+  Icon,
+  Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Text,
+  useBreakpointValue,
+} from '@chakra-ui/react';
+
+import { AiOutlineMail } from 'react-icons/ai';
+import { MdChevronRight } from 'react-icons/md';
 
 export default function Home() {
+  const ctaButtonText = useBreakpointValue({
+    base: <Icon as={MdChevronRight} w={6} h={6} />,
+    sm: 'Agendar consulta',
+  });
   return (
     <Layout isHeaded>
       <Flex align="center" justify="center" py={[0, 20]}>
@@ -31,14 +49,42 @@ export default function Home() {
               as="h2"
               fontWeight="regular"
               size="md"
-              bgGradient="linear(to-b, brand.700,  brand.800)"
+              bgGradient="linear(to-br, brand.700,  brand.800)"
               bgClip="text"
               p={1}
             >
-              Cuidados médicos para todos, junto a uma experiência única ao
-              cuidar da saúde. A parceria eficiente entre atendimento humanizado
-              e tecnologia.
+              Cuidados médicos para você, junto à melhor experiência ao cuidar
+              da sua saúde. Atendimento humanizado e a tecnologia em seu
+              benefício.
             </Heading>
+            <Flex w="100%" h={2} my={4} />
+            <form>
+              <InputGroup borderRadius="full" boxShadow="base" size="lg">
+                <InputLeftElement
+                  pointerEvents="none"
+                  color="gray.300"
+                  fontSize="1.2em"
+                >
+                  <Icon as={AiOutlineMail} w={6} h={6} />
+                </InputLeftElement>
+                <Input
+                  type="email"
+                  placeholder="Digite seu e-mail"
+                  borderRadius="full"
+                  color="brand.800"
+                  focusBorderColor="brand.500"
+                />
+                <InputRightElement w="">
+                  <CallToActionButton
+                    type="submit"
+                    size="lg"
+                    w={['45px', '195px']}
+                    transition="width 0.4s"
+                    text={ctaButtonText}
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </form>
           </Flex>
           <Flex
             w={['100%', '100%', '100%', '60%']}

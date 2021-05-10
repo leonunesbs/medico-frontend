@@ -1,5 +1,7 @@
 import { ButtonProps } from '@chakra-ui/react';
 
 export declare namespace ICallToActionButton {
-  export type IProps = ButtonProps;
+  export interface IProps extends ButtonProps {
+    text?: string | JSX.Element | undefined;
+  }
 }

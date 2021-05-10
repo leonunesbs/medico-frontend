@@ -11,6 +11,7 @@ import { ICallToActionButton } from './CallToActionButton';
 // #endregion Interface Imports
 
 export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IProps> = ({
+  text,
   ...rest
 }: ICallToActionButton.IProps) => (
   <Button
@@ -22,6 +23,6 @@ export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IPr
     _hover={{ bgColor: 'brand.700' }}
     {...rest}
   >
-    Agendar consulta
+    {text || 'Agendar consulta'}
   </Button>
 );
