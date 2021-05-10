@@ -40,7 +40,11 @@ export default function Home() {
               e tecnologia.
             </Heading>
           </Flex>
-          <Flex w={['100%', '100%', '100%', '60%']}>
+          <Flex
+            w={['100%', '100%', '100%', '60%']}
+            h={['340px', '520px']}
+            transition="width 0.4s"
+          >
             <Image
               src="/esteto.png"
               alt="esteto"
