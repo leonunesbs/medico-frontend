@@ -12,24 +12,21 @@ export const HeaderLogo: React.FunctionComponent<IHeaderLogo.IProps> = ({
       <Button
         name="logo"
         h={[
-          `${disclosure.isOpen ? '70px' : '50px'}`,
+          `${disclosure.isOpen ? '80px' : '50px'}`,
           `${disclosure.isOpen ? '120px' : '80px'}`,
           '120px',
         ]}
         bgColor="transparent"
+        m={0}
         p={0}
-        d="flex"
-        justifyContent="flex-start"
         _active={{}}
         _hover={{}}
       >
         <Icon
-          position="relative"
           viewBox={disclosure.isOpen ? '0 0 408.25 123' : '0 0 122.63 122.26'}
           w="200"
-          maxW="75%"
+          maxW={['180px', 'initial']}
           h="100%"
-          objectFit="contain"
         >
           {disclosure.isOpen ? (
             <g id="logo">
