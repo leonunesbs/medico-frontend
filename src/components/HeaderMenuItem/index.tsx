@@ -28,29 +28,29 @@ export const HeaderMenuItem: React.FunctionComponent<IHeaderMenuItem.IProps> = (
           color={isActive ? 'brand.500' : 'brand.800'}
         />
       )}
-      <Button
-        isActive={isActive}
-        transition="color 0.5s"
-        borderRadius="full"
-        bgColor="transparent"
-        color="brand.700"
-        fontWeight="regular"
-        _hover={{
-          bgColor: 'transparent',
-          color: 'brand.800',
-          fontWeight: 'semibold',
-        }}
-        _active={{
-          bgColor: 'transparent',
-          color: 'brand.500',
-          fontWeight: 'bold',
-        }}
-        {...rest}
-      >
-        <LinkOverlay d="flex" alignItems="center">
+      <LinkOverlay d="flex" alignItems="center">
+        <Button
+          isActive={isActive}
+          transition="color 0.5s"
+          borderRadius="full"
+          bgColor="transparent"
+          color="brand.700"
+          fontWeight="regular"
+          _hover={{
+            bgColor: 'transparent',
+            color: 'brand.800',
+            fontWeight: 'semibold',
+          }}
+          _active={{
+            bgColor: 'transparent',
+            color: 'brand.500',
+            fontWeight: 'bold',
+          }}
+          {...rest}
+        >
           {text}
-        </LinkOverlay>
-      </Button>
+        </Button>
+      </LinkOverlay>
     </Flex>
   </LinkBox>
 );

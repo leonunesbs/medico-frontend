@@ -17,6 +17,7 @@ export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IPr
     bgColor="brand.500"
     color="brand.100"
     borderRadius="full"
+    fontWeight="bold"
     _active={{ bgColor: 'brand.800', color: 'brand.500' }}
     _hover={{ bgColor: 'brand.700' }}
     {...rest}
