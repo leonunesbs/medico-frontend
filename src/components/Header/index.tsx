@@ -1,5 +1,5 @@
 // #region Global Imports
-import { Flex, Image, SlideFade, useDisclosure } from '@chakra-ui/react';
+import { Flex, Image, useDisclosure } from '@chakra-ui/react';
 import {
   CallToActionButton,
   HamburgerMenu,
@@ -39,15 +39,13 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
                 h={['70px', '90px', '120px']}
               />
               {mobileNavDisclosure.isOpen ? (
-                <SlideFade in={mobileNavDisclosure.isOpen} reverse>
-                  <Image
-                    d={['flex', 'none']}
-                    maxW="75%"
-                    src="/images/logo-light-h.png"
-                    objectFit="contain"
-                    transition="width 0.5s, height 0.5s"
-                  />
-                </SlideFade>
+                <Image
+                  d={['flex', 'none']}
+                  maxW="75%"
+                  src="/images/logo-light-h.png"
+                  objectFit="contain"
+                  transition="width 0.5s, height 0.5s"
+                />
               ) : (
                 <Image
                   d={['flex', 'none']}
