@@ -1,10 +1,14 @@
 // Version 1: Using objects
-const styles = {
+export const styles = {
   global: {
     // styles for the `body`
+    heading: {
+      fontFamily: 'Montserrat',
+    },
     body: {
       bg: 'brand.100',
       color: 'brand.700',
+      fontFamily: 'Montserrat',
     },
     // styles for the `a`
     a: {
@@ -14,5 +18,3 @@ const styles = {
     },
   },
 };
-
-export { styles };
