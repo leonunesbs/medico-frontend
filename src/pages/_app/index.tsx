@@ -2,12 +2,12 @@
 import React from 'react';
 import { AppProps /* , AppContext */ } from 'next/app';
 
+// Import fonts
+import '@fontsource/montserrat';
+
 // 1. import `ChakraProvider` component
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/styles/theme';
-
-// Import fonts
-import '@fontsource/montserrat';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
