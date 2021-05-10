@@ -151,20 +151,22 @@ export const HeaderLogo: React.FunctionComponent<IHeaderLogo.IProps> = ({
         aria-label="header-logo"
         h={disclosure.isOpen ? heightVariantDisclosureOpen : heightVariant}
         w={disclosure.isOpen ? widhtVariantDisclosureOpen : widhtVariant}
-      >
-        <Icon
-          maxH={disclosure.isOpen ? heightVariantDisclosureOpen : heightVariant}
-          transition="width 0.4s, height 0.4s, transform 1s"
-          viewBox={
-            disclosure.isOpen ? viewBoxVariantDisclosureOpen : viewBoxVariant
-          }
-          objectFit="contain"
-          w="100%"
-          h="100%"
-        >
-          <Logo theme={theme} />
-        </Icon>
-      </IconButton>
+        icon={
+          <Icon
+            maxH={
+              disclosure.isOpen ? heightVariantDisclosureOpen : heightVariant
+            }
+            viewBox={
+              disclosure.isOpen ? viewBoxVariantDisclosureOpen : viewBoxVariant
+            }
+            objectFit="contain"
+            w="100%"
+            h="100%"
+          >
+            <Logo theme={theme} />
+          </Icon>
+        }
+      />
     </NextLink>
   );
 };
