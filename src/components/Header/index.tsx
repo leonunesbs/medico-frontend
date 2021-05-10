@@ -1,15 +1,17 @@
 // #region Global Imports
-import { Flex, Image, useDisclosure } from '@chakra-ui/react';
+import React, { useRef } from 'react';
+import { Flex, useDisclosure, useOutsideClick } from '@chakra-ui/react';
+
+// #endregion Global Imports
+
+// #region Local Imports
 import {
   CallToActionButton,
   HamburgerMenu,
   HeaderMenu,
+  HeaderLogo,
   MobileCollapseMenu,
 } from '@/components';
-import React from 'react';
-// #endregion Global Imports
-
-// #region Local Imports
 // #endregion Local Imports
 
 // #region Interface Imports
@@ -20,10 +22,20 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
   ...rest
 }: IHeader.IProps) => {
   const mobileNavDisclosure = useDisclosure();
+  const headerRef = useRef<HTMLDivElement>(null);
+  useOutsideClick({
+    ref: headerRef,
+    handler: () => mobileNavDisclosure.onClose(),
+  });
   return (
     <section id="header">
-      <Flex bgColor="brand.100" boxShadow="base" flexDir="column">
-        <Flex justify="center" px={4} py={2} {...rest}>
+      <Flex
+        ref={headerRef}
+        bgColor="brand.100"
+        boxShadow="base"
+        flexDir="column"
+      >
+        <Flex justify="center" px={2} py={2} {...rest}>
           <Flex
             flexGrow={1}
             align="center"
@@ -31,33 +43,10 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
             maxW="1280px"
           >
             <Flex>
-              <Image
-                d={['none', 'flex']}
-                src="/images/logo-light-h.png"
-                objectFit="contain"
-                transition="width 0.5s, height 0.5s"
-                h={['70px', '90px', '120px']}
-              />
-              {mobileNavDisclosure.isOpen ? (
-                <Image
-                  d={['flex', 'none']}
-                  maxW="75%"
-                  src="/images/logo-light-h.png"
-                  objectFit="contain"
-                  transition="width 0.5s, height 0.5s"
-                />
-              ) : (
-                <Image
-                  d={['flex', 'none']}
-                  src="/images/logo-light.png"
-                  objectFit="contain"
-                  transition="width 0.5s, height 0.5s"
-                  h={['50px', '60px', '80px', '100px', '120px']}
-                />
-              )}
+              <HeaderLogo disclosure={mobileNavDisclosure} />
             </Flex>
             <Flex>
-              <HeaderMenu />
+              <HeaderMenu d={['none', 'none', 'none', 'none', 'flex']} />
             </Flex>
             <Flex>
               <CallToActionButton

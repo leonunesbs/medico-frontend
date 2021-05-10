@@ -1,5 +1,6 @@
 export { Layout } from '@/components/Layout';
 export { Header } from '@/components/Header';
+export { HeaderLogo } from '@/components/HeaderLogo';
 export { CallToActionButton } from '@/components/CallToActionButton';
 export { HeaderMenu } from '@/components/HeaderMenu';
 export { HeaderMenuItem } from '@/components/HeaderMenuItem';

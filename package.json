@@ -34,7 +34,8 @@
     "hamburger-react": "2.4.1",
     "next": "10.2.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-icons": "4.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.1",
@@ -42,6 +43,7 @@
     "@types/node": "14.14.44",
     "@types/react": "17.0.5",
     "@types/react-dom": "17.0.3",
+    "@types/react-icons": "3.0.0",
     "@typescript-eslint/eslint-plugin": "4.22.1",
     "@typescript-eslint/parser": "4.22.1",
     "commitizen": "4.2.3",

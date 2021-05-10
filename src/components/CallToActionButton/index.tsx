@@ -13,9 +13,14 @@ import { ICallToActionButton } from './CallToActionButton';
 export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IProps> = ({
   ...rest
 }: ICallToActionButton.IProps) => (
-  <section id="callToActionButton">
-    <Button bgColor="brand.500" color="brand.100" borderRadius="full" {...rest}>
-      Agendar consulta
-    </Button>
-  </section>
+  <Button
+    bgColor="brand.500"
+    color="brand.100"
+    borderRadius="full"
+    _active={{ bgColor: 'brand.800', color: 'brand.500' }}
+    _hover={{ bgColor: 'brand.700' }}
+    {...rest}
+  >
+    Agendar consulta
+  </Button>
 );

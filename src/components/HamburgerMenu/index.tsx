@@ -17,19 +17,22 @@ export const HamburgerMenu: React.FunctionComponent<IHamburgerMenu.IProps> = ({
 }: IHamburgerMenu.IProps) => {
   const theme = useTheme();
   return (
-    <section id="hamburgerMenu">
-      <Flex {...rest}>
-        <Hamburger
-          size={25}
-          color={
-            disclosure.isOpen
-              ? theme.colors.brand[500]
-              : theme.colors.brand[700]
-          }
-          toggled={disclosure.isOpen}
-          toggle={disclosure.onToggle}
-        />
-      </Flex>
-    </section>
+    <Flex
+      bgColor={disclosure.isOpen ? 'brand.500' : 'transparent'}
+      borderRadius="full"
+      p={0}
+      m={1}
+      transition="background 0.2s ease-in"
+      {...rest}
+    >
+      <Hamburger
+        size={20}
+        color={
+          disclosure.isOpen ? theme.colors.brand[100] : theme.colors.brand[500]
+        }
+        toggled={disclosure.isOpen}
+        toggle={disclosure.onToggle}
+      />
+    </Flex>
   );
 };

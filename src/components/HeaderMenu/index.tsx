@@ -12,16 +12,40 @@ import { IHeaderMenu } from './HeaderMenu';
 // #endregion Interface Imports
 
 export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({
+  mobileIcon,
+  disclosure,
   ...rest
-}: IHeaderMenu.IProps) => (
-  <section id="headerMenu">
-    <>
-      <Flex d={[`none`, `none`, `none`, `none`, `flex`]} {...rest}>
-        <HeaderMenuItem text="Início" />
-        <HeaderMenuItem text="Agenda" />
-        <HeaderMenuItem text="Especialidades" />
-        <HeaderMenuItem text="Procedimentos" />
-      </Flex>
-    </>
-  </section>
-);
+}: IHeaderMenu.IProps) => {
+  const menuItems = [
+    {
+      text: 'Início',
+      isActive: true,
+    },
+    {
+      text: 'Agenda',
+      isActive: false,
+    },
+    {
+      text: 'Especialidades',
+      isActive: false,
+    },
+    {
+      text: 'Procedimentos',
+      isActive: false,
+    },
+  ];
+
+  return (
+    <Flex {...rest}>
+      {menuItems.map((item) => (
+        <HeaderMenuItem
+          key={item.text}
+          text={item.text}
+          isActive={item.isActive}
+          mobileIcon={mobileIcon}
+          onClick={disclosure?.onClose}
+        />
+      ))}
+    </Flex>
+  );
+};
