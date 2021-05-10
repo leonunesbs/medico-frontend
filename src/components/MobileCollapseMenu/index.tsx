@@ -18,21 +18,23 @@ export const MobileCollapseMenu: React.FunctionComponent<IMobileCollapseMenu.IPr
 }: IMobileCollapseMenu.IProps) => (
   <section id="mobileCollapseMenu">
     <Collapse in={disclosure.isOpen} animateOpacity unmountOnExit {...rest}>
-      <Flex flexDir="column" p={4}>
-        <HeaderMenu
-          flexDir="column"
-          align="flex-start"
-          disclosure={disclosure}
-          mobileIcon
-        />
-        <Flex
-          h="px"
-          bgColor="rgba(0,0,0,0.1)"
-          maxW="50%"
-          my={2}
-          alignSelf="center"
-        />
-        <CallToActionButton>Agendar consulta</CallToActionButton>
+      <Flex align="center" justify="center">
+        <Flex flexDir="column" flexGrow={1} maxW="1280px" p={4}>
+          <HeaderMenu
+            flexDir="column"
+            align="flex-start"
+            disclosure={disclosure}
+            mobileIcon
+          />
+          <Flex
+            h="px"
+            bgColor="rgba(0,0,0,0.1)"
+            maxW="50%"
+            my={2}
+            alignSelf="center"
+          />
+          <CallToActionButton>Agendar consulta</CallToActionButton>
+        </Flex>
       </Flex>
     </Collapse>
   </section>
