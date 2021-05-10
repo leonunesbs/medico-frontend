@@ -103,36 +103,36 @@ export const HeaderLogo: React.FunctionComponent<IHeaderLogo.IProps> = ({
   const theme = useTheme();
   const viewBoxVariant = useBreakpointValue({
     base: '0 0 122.63 122.26',
+    sm: '0 0 408.25 123',
     md: '0 0 408.25 123',
     lg: '0 0 408.25 123',
-    xl: '0 0 408.25 123',
   });
 
   const heightVariant = useBreakpointValue({
     base: '40px',
-    md: '73px',
+    sm: '73px',
+    md: '122px',
     lg: '122px',
-    xl: '122px',
   });
   const widhtVariant = useBreakpointValue({
     base: '40px ',
-    md: '245px',
+    sm: '245px',
+    md: '408px',
     lg: '408px',
-    xl: '408px',
   });
 
   const viewBoxVariantDisclosureOpen = useBreakpointValue({
     base: '0 0 408.25 123',
+    sm: '0 0 408.25 123',
     md: '0 0 408.25 123',
     lg: '0 0 408.25 123',
-    xl: '0 0 408.25 123',
   });
 
   const heightVariantDisclosureOpen = useBreakpointValue({
     base: '100%',
+    sm: '122px',
     md: '122px',
     lg: '122px',
-    xl: '122px',
   });
   const widhtVariantDisclosureOpen = useBreakpointValue({
     base: '85%',
