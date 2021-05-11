@@ -90,6 +90,9 @@ export default function Home() {
             w={['100%', '100%', '100%', '60%']}
             h={['340px', '520px']}
             transition="width 0.4s"
+            align="center"
+            alignSelf="center"
+            justify="center"
           >
             <Image
               src="/esteto.png"
