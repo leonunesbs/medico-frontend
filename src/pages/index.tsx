@@ -97,8 +97,8 @@ export default function Home() {
               src="/esteto.png"
               alt="esteto"
               objectFit="contain"
-              width="800px"
-              height="800px"
+              width={800}
+              height={800}
             />
           </Flex>
         </Flex>
