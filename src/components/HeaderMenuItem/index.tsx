@@ -1,14 +1,14 @@
 // #region Global Imports
-import React from 'react'
-import { Button, Flex, Icon, LinkBox, LinkOverlay } from '@chakra-ui/react'
-import { BsArrowReturnRight } from 'react-icons/bs'
+import React from 'react';
+import { Button, Flex, Icon, LinkBox, LinkOverlay } from '@chakra-ui/react';
+import { BsArrowReturnRight } from 'react-icons/bs';
 // #endregion Global Imports
 
 // #region Local Imports
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IHeaderMenuItem } from './HeaderMenuItem'
+import { IHeaderMenuItem } from './HeaderMenuItem';
 // #endregion Interface Imports
 
 export const HeaderMenuItem: React.FunctionComponent<IHeaderMenuItem.IProps> = ({
@@ -39,12 +39,12 @@ export const HeaderMenuItem: React.FunctionComponent<IHeaderMenuItem.IProps> = (
           _hover={{
             bgColor: 'transparent',
             color: 'brand.800',
-            fontWeight: 'semibold'
+            fontWeight: 'semibold',
           }}
           _active={{
             bgColor: 'transparent',
             color: 'brand.500',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }}
           {...rest}
         >
@@ -53,4 +53,4 @@ export const HeaderMenuItem: React.FunctionComponent<IHeaderMenuItem.IProps> = (
       </LinkOverlay>
     </Flex>
   </LinkBox>
-)
+);

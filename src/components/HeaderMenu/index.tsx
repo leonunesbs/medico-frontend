@@ -1,14 +1,14 @@
 // #region Global Imports
-import React from 'react'
-import { Flex } from '@chakra-ui/react'
+import React from 'react';
+import { Flex } from '@chakra-ui/react';
 // #endregion Global Imports
 
 // #region Local Imports
 // #endregion Local Imports
 
 // #region Interface Imports
-import { HeaderMenuItem } from '@/components'
-import { IHeaderMenu } from './HeaderMenu'
+import { HeaderMenuItem } from '@/components';
+import { IHeaderMenu } from './HeaderMenu';
 // #endregion Interface Imports
 
 export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({
@@ -19,21 +19,21 @@ export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({
   const menuItems = [
     {
       text: 'Início',
-      isActive: true
+      isActive: true,
     },
     {
       text: 'Agenda',
-      isActive: false
+      isActive: false,
     },
     {
       text: 'Especialidades',
-      isActive: false
+      isActive: false,
     },
     {
       text: 'Procedimentos',
-      isActive: false
-    }
-  ]
+      isActive: false,
+    },
+  ];
 
   return (
     <Flex {...rest}>
@@ -47,5 +47,5 @@ export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({
         />
       ))}
     </Flex>
-  )
-}
+  );
+};

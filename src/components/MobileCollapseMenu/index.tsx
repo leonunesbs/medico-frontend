@@ -1,15 +1,15 @@
 // #region Global Imports
-import { Collapse, Flex } from '@chakra-ui/react'
-import { CallToActionButton } from '@/components'
-import React from 'react'
+import { Collapse, Flex } from '@chakra-ui/react';
+import { CallToActionButton } from '@/components';
+import React from 'react';
 // #endregion Global Imports
 
 // #region Local Imports
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IMobileCollapseMenu } from './MobileCollapseMenu'
-import { HeaderMenu } from '../HeaderMenu'
+import { IMobileCollapseMenu } from './MobileCollapseMenu';
+import { HeaderMenu } from '../HeaderMenu';
 // #endregion Interface Imports
 
 export const MobileCollapseMenu: React.FunctionComponent<IMobileCollapseMenu.IProps> = ({
@@ -38,4 +38,4 @@ export const MobileCollapseMenu: React.FunctionComponent<IMobileCollapseMenu.IPr
       </Flex>
     </Collapse>
   </section>
-)
+);
