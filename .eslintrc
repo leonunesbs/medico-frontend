@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -15,7 +16,7 @@
     "SharedArrayBuffer": "readonly"
   },
   "plugins": ["import", "jsx-a11y", "react", "react-hooks", "prettier"],
-  "extends": ["airbnb", "prettier"],
+  "extends": ["standard", "prettier", "plugin:react/recommended"],
   "rules": {
     "prettier/prettier": "error",
     "camelcase": "off",
