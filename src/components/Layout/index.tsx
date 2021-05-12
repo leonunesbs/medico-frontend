@@ -1,7 +1,7 @@
 // #region Global Imports
 import React from 'react'
 import { Flex } from '@chakra-ui/react'
-import { Header } from '@/components'
+import { Header, Fonts } from '@/components'
 // #endregion Global Imports
 
 // #region Local Imports
@@ -17,6 +17,7 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   ...rest
 }: ILayout.IProps) => (
   <Flex id="layout" w="100vw" minH="100vh" flexDir="column" {...rest}>
+    <Fonts />
     {isHeaded && <Header />}
     {children}
   </Flex>
