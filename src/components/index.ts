@@ -1,6 +1,8 @@
 export { Layout } from '@/components/Layout'
 export { Header } from '@/components/Header'
+export { Footer } from '@/components/Footer'
 export { HeaderLogo } from '@/components/HeaderLogo'
+export { CallToAction } from '@/components/CallToAction'
 export { CallToActionButton } from '@/components/CallToActionButton'
 export { CallToActionForm } from '@/components/CallToActionForm'
 export { UnformCtaInput } from '@/components/UnformCtaInput'

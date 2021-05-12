@@ -5,5 +5,7 @@ export declare namespace ILayout {
   export interface IProps extends FlexProps {
     children: ReactNode
     isHeaded?: boolean
+    isFootered?: boolean
+    socials?: any
   }
 }
