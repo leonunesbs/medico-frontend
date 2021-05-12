@@ -1,5 +1,5 @@
 import React from 'react';
-import { CallToActionButton, Layout } from '@/components';
+import { CallToActionButton, Layout, Seo } from '@/components';
 import {
   Flex,
   Heading,
@@ -23,6 +23,7 @@ export default function Home() {
   });
   return (
     <Layout isHeaded>
+      <Seo />
       <Flex align="center" justify="center" py={[0, 20]}>
         <Flex flexWrap="wrap-reverse" maxW="1280px" flexGrow={1} p={4}>
           <Flex
@@ -39,9 +40,7 @@ export default function Home() {
               mb={10}
               p={1}
             >
-              <Text as="span" textShadow="base">
-                OLÁ, VIDA
-              </Text>
+              <Text as="span">OLÁ, VIDA</Text>
               <br />
               <Text as="span">SAUDÁVEL!</Text>
             </Heading>

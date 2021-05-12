@@ -6,3 +6,4 @@ export { HeaderMenu } from '@/components/HeaderMenu';
 export { HeaderMenuItem } from '@/components/HeaderMenuItem';
 export { MobileCollapseMenu } from '@/components/MobileCollapseMenu';
 export { HamburgerMenu } from '@/components/HamburgerMenu';
+export { Seo } from '@/components/Seo';
