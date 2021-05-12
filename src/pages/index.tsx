@@ -1,10 +1,10 @@
 import React from 'react'
+import NextImage from 'next/image'
 import { CallToActionButton, Layout, Seo } from '@/components'
 import {
   Flex,
   Heading,
   Icon,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -93,11 +93,12 @@ export default function Home() {
             alignSelf="center"
             justify="center"
           >
-            <Image
+            <NextImage
               src="/esteto.png"
               alt="esteto"
-              fit="contain"
-              transition="transform 0.2s ease-in"
+              objectFit="contain"
+              width="800px"
+              height="800px"
             />
           </Flex>
         </Flex>
