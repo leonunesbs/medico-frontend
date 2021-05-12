@@ -1,21 +1,21 @@
 // #region Global Imports
-import React from 'react';
-import { Flex, IconButton, useTheme } from '@chakra-ui/react';
-import { Squash as Hamburger } from 'hamburger-react';
+import React from 'react'
+import { Flex, IconButton, useTheme } from '@chakra-ui/react'
+import { Squash as Hamburger } from 'hamburger-react'
 // #endregion Global Imports
 
 // #region Local Imports
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IHamburgerMenu } from './HamburgerMenu';
+import { IHamburgerMenu } from './HamburgerMenu'
 // #endregion Interface Imports
 
 export const HamburgerMenu: React.FunctionComponent<IHamburgerMenu.IProps> = ({
   disclosure,
   ...rest
 }: IHamburgerMenu.IProps) => {
-  const theme = useTheme();
+  const theme = useTheme()
   return (
     <Flex {...rest}>
       <IconButton
@@ -41,5 +41,5 @@ export const HamburgerMenu: React.FunctionComponent<IHamburgerMenu.IProps> = ({
         }
       />
     </Flex>
-  );
-};
+  )
+}

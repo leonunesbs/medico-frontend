@@ -1,11 +1,11 @@
 // theme.js
-import { extendTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react'
 // Global style overrides
-import { styles } from './styles';
+import { styles } from './styles'
 // Foundational style overrides
-import { colors, fonts } from './foundations';
+import { colors, fonts } from './foundations'
 // Component style overrides
-import { Button } from './components';
+import { Button } from './components'
 
 const overrides = {
   styles,
@@ -13,9 +13,9 @@ const overrides = {
   fonts,
   // Other foundational style overrides go here
   components: {
-    Button,
+    Button
     // Other components go here
-  },
-};
+  }
+}
 
-export default extendTheme(overrides);
+export default extendTheme(overrides)

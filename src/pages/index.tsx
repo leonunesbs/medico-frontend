@@ -1,5 +1,5 @@
-import React from 'react';
-import { CallToActionButton, Layout, Seo } from '@/components';
+import React from 'react'
+import { CallToActionButton, Layout, Seo } from '@/components'
 import {
   Flex,
   Heading,
@@ -10,17 +10,17 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
-  useBreakpointValue,
-} from '@chakra-ui/react';
+  useBreakpointValue
+} from '@chakra-ui/react'
 
-import { AiOutlineMail } from 'react-icons/ai';
-import { MdChevronRight } from 'react-icons/md';
+import { AiOutlineMail } from 'react-icons/ai'
+import { MdChevronRight } from 'react-icons/md'
 
 export default function Home() {
   const ctaButtonText = useBreakpointValue({
     base: <Icon as={MdChevronRight} w={6} h={6} />,
-    sm: 'Agendar consulta',
-  });
+    sm: 'Agendar consulta'
+  })
   return (
     <Layout isHeaded>
       <Seo />
@@ -103,5 +103,5 @@ export default function Home() {
         </Flex>
       </Flex>
     </Layout>
-  );
+  )
 }

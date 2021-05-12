@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 import {
   Icon,
   useTheme,
   useBreakpointValue,
-  IconButton,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { IHeaderLogo } from './HeaderLogo';
+  IconButton
+} from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { IHeaderLogo } from './HeaderLogo'
 
 const Logo = ({ theme }: any) => (
   <g id="logo">
@@ -95,51 +95,51 @@ const Logo = ({ theme }: any) => (
       d="M350.78,45.7a3.59,3.59,0,0,1-1.21-.61l.43-.74a3.6,3.6,0,0,0,1.09.56,4.58,4.58,0,0,0,1.38.22,2.59,2.59,0,0,0,1.41-.3,1,1,0,0,0,.46-.84.76.76,0,0,0-.25-.6,1.56,1.56,0,0,0-.64-.33,8.25,8.25,0,0,0-1-.22,12.43,12.43,0,0,1-1.36-.33,1.91,1.91,0,0,1-.88-.56,1.57,1.57,0,0,1-.37-1.1,1.74,1.74,0,0,1,.73-1.43,3.29,3.29,0,0,1,2-.55,5.22,5.22,0,0,1,1.35.18,3.57,3.57,0,0,1,1.11.47l-.41.75a3.51,3.51,0,0,0-2.05-.59,2.4,2.4,0,0,0-1.36.31,1,1,0,0,0-.46.84.83.83,0,0,0,.26.63,1.53,1.53,0,0,0,.64.35,9.58,9.58,0,0,0,1.06.23c.56.11,1,.22,1.34.32a2.1,2.1,0,0,1,.86.54,1.5,1.5,0,0,1,.36,1.06,1.69,1.69,0,0,1-.77,1.45,3.58,3.58,0,0,1-2.11.54A5.18,5.18,0,0,1,350.78,45.7Z"
     />
   </g>
-);
+)
 
 export const HeaderLogo: React.FunctionComponent<IHeaderLogo.IProps> = ({
-  disclosure,
+  disclosure
 }) => {
-  const theme = useTheme();
+  const theme = useTheme()
   const viewBoxVariant = useBreakpointValue({
     base: '0 0 122.63 122.26',
     sm: '0 0 408.25 123',
     md: '0 0 408.25 123',
-    lg: '0 0 408.25 123',
-  });
+    lg: '0 0 408.25 123'
+  })
 
   const heightVariant = useBreakpointValue({
     base: '40px',
     sm: '73px',
     md: '122px',
-    lg: '122px',
-  });
+    lg: '122px'
+  })
   const widhtVariant = useBreakpointValue({
     base: '40px ',
     sm: '245px',
     md: '408px',
-    lg: '408px',
-  });
+    lg: '408px'
+  })
 
   const viewBoxVariantDisclosureOpen = useBreakpointValue({
     base: '0 0 408.25 123',
     sm: '0 0 408.25 123',
     md: '0 0 408.25 123',
-    lg: '0 0 408.25 123',
-  });
+    lg: '0 0 408.25 123'
+  })
 
   const heightVariantDisclosureOpen = useBreakpointValue({
     base: '100%',
     sm: '122px',
     md: '122px',
-    lg: '122px',
-  });
+    lg: '122px'
+  })
   const widhtVariantDisclosureOpen = useBreakpointValue({
     base: '85%',
     md: '408px',
     lg: '408px',
-    xl: '408px',
-  });
+    xl: '408px'
+  })
 
   return (
     <NextLink href="/" as="/">
@@ -168,5 +168,5 @@ export const HeaderLogo: React.FunctionComponent<IHeaderLogo.IProps> = ({
         }
       />
     </NextLink>
-  );
-};
+  )
+}
