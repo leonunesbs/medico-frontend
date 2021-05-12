@@ -1,27 +1,27 @@
 // import App from "next/app";
-import React from 'react';
-import { AppProps /* , AppContext */ } from 'next/app';
+import React from 'react'
+import { AppProps /* , AppContext */ } from 'next/app'
 
 // Import fonts
-import '@fontsource/montserrat/100.css';
-import '@fontsource/montserrat/300.css';
-import '@fontsource/montserrat/400.css';
-import '@fontsource/montserrat/500.css';
-import '@fontsource/montserrat/600.css';
-import '@fontsource/montserrat/700.css';
-import '@fontsource/montserrat/800.css';
-import '@fontsource/montserrat/900.css';
+import '@fontsource/montserrat/100.css'
+import '@fontsource/montserrat/300.css'
+import '@fontsource/montserrat/400.css'
+import '@fontsource/montserrat/500.css'
+import '@fontsource/montserrat/600.css'
+import '@fontsource/montserrat/700.css'
+import '@fontsource/montserrat/800.css'
+import '@fontsource/montserrat/900.css'
 
 // 1. import `ChakraProvider` component
-import { ChakraProvider } from '@chakra-ui/react';
-import theme from '@/styles/theme';
+import { ChakraProvider } from '@chakra-ui/react'
+import theme from '@/styles/theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>
-  );
+  )
 }
 
 // Only uncomment this method if you have blocking data requirements for
@@ -36,4 +36,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 //   return { ...appProps }
 // }
 
-export default MyApp;
+export default MyApp

@@ -1,6 +1,6 @@
 // #region Global Imports
-import React, { useRef } from 'react';
-import { Flex, useDisclosure, useOutsideClick } from '@chakra-ui/react';
+import React, { useRef } from 'react'
+import { Flex, useDisclosure, useOutsideClick } from '@chakra-ui/react'
 
 // #endregion Global Imports
 
@@ -10,23 +10,23 @@ import {
   HamburgerMenu,
   HeaderMenu,
   HeaderLogo,
-  MobileCollapseMenu,
-} from '@/components';
+  MobileCollapseMenu
+} from '@/components'
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IHeader } from './Header';
+import { IHeader } from './Header'
 // #endregion Interface Imports
 
 export const Header: React.FunctionComponent<IHeader.IProps> = ({
   ...rest
 }: IHeader.IProps) => {
-  const mobileNavDisclosure = useDisclosure();
-  const headerRef = useRef<HTMLDivElement>(null);
+  const mobileNavDisclosure = useDisclosure()
+  const headerRef = useRef<HTMLDivElement>(null)
   useOutsideClick({
     ref: headerRef,
-    handler: () => mobileNavDisclosure.onClose(),
-  });
+    handler: () => mobileNavDisclosure.onClose()
+  })
   return (
     <section id="header">
       <Flex
@@ -62,5 +62,5 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
         <MobileCollapseMenu disclosure={mobileNavDisclosure} />
       </Flex>
     </section>
-  );
-};
+  )
+}
