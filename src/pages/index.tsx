@@ -1,26 +1,10 @@
 import React from 'react'
 import NextImage from 'next/image'
-import { CallToActionButton, Layout, Seo } from '@/components'
-import {
-  Flex,
-  Heading,
-  Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Text,
-  useBreakpointValue
-} from '@chakra-ui/react'
-
-import { AiOutlineMail } from 'react-icons/ai'
-import { MdChevronRight } from 'react-icons/md'
+import { Layout, Seo } from '@/components'
+import { Flex, Heading, Text } from '@chakra-ui/react'
+import { CallToActionForm } from '@/components/CallToActionForm'
 
 export default function Home() {
-  const ctaButtonText = useBreakpointValue({
-    base: <Icon as={MdChevronRight} w={6} h={6} />,
-    sm: 'Agendar consulta'
-  })
   return (
     <Layout isHeaded>
       <Seo />
@@ -50,40 +34,14 @@ export default function Home() {
               size="md"
               bgGradient="linear(to-br, brand.700,  brand.800)"
               bgClip="text"
+              mb={10}
               p={1}
             >
               Cuidados médicos para você, junto à melhor experiência ao cuidar
               da sua saúde. Atendimento humanizado e a tecnologia em seu
               benefício.
             </Heading>
-            <Flex w="100%" h={2} my={4} />
-            <form>
-              <InputGroup borderRadius="full" boxShadow="base" size="lg">
-                <InputLeftElement
-                  pointerEvents="none"
-                  color="gray.300"
-                  fontSize="1.2em"
-                >
-                  <Icon as={AiOutlineMail} w={6} h={6} />
-                </InputLeftElement>
-                <Input
-                  type="email"
-                  placeholder="Digite seu e-mail"
-                  borderRadius="full"
-                  color="brand.800"
-                  focusBorderColor="brand.500"
-                />
-                <InputRightElement w="">
-                  <CallToActionButton
-                    type="submit"
-                    size="lg"
-                    w={['45px', '195px']}
-                    transition="width 0.4s"
-                    text={ctaButtonText}
-                  />
-                </InputRightElement>
-              </InputGroup>
-            </form>
+            <CallToActionForm />
           </Flex>
           <Flex
             w={['100%', '100%', '100%', '60%']}

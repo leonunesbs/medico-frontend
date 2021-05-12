@@ -29,6 +29,8 @@
     "@chakra-ui/react": "1.6.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@unform/core": "2.1.6",
+    "@unform/web": "2.1.6",
     "framer-motion": "^4",
     "hamburger-react": "2.4.1",
     "next": "10.2.0",
