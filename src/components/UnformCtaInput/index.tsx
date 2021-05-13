@@ -7,6 +7,7 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Text,
   useBreakpointValue
 } from '@chakra-ui/react'
 import { useField } from '@unform/core'
@@ -22,7 +23,7 @@ export const UnformCtaInput: React.FC<IUnformCtaInput.IProps> = ({
   const inputRef = useRef<HTMLInputElement>(null)
   const ctaButtonText = useBreakpointValue({
     base: <Icon as={MdChevronRight} w={6} h={6} />,
-    sm: 'Agendar consulta'
+    sm: <Text>Agendar consulta</Text>
   })
 
   const { fieldName, defaultValue, registerField, error } = useField(name)
