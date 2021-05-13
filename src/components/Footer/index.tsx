@@ -35,6 +35,7 @@ export const Footer: React.FC<IFooter.IProps> = ({
     <section id="footer">
       <Flex
         bgGradient="linear(to-b, brand.500 60%, brand.600)"
+        boxShadow="inner"
         color="brand.100"
         transition="border-radius 0.4s"
         borderTopLeftRadius={['100px', '175px', '175px', '175px', '300px']}
