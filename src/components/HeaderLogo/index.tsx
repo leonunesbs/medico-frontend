@@ -153,15 +153,12 @@ export const HeaderLogo: React.FunctionComponent<IHeaderLogo.IProps> = ({
         w={disclosure.isOpen ? widhtVariantDisclosureOpen : widhtVariant}
         icon={
           <Icon
-            maxH={
-              disclosure.isOpen ? heightVariantDisclosureOpen : heightVariant
-            }
+            h={disclosure.isOpen ? heightVariantDisclosureOpen : heightVariant}
             viewBox={
               disclosure.isOpen ? viewBoxVariantDisclosureOpen : viewBoxVariant
             }
             objectFit="contain"
             w="100%"
-            h="100%"
           >
             <Logo theme={theme} />
           </Icon>
