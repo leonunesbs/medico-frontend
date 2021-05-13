@@ -1,5 +1,5 @@
 // #region Global Imports
-import { Button } from '@chakra-ui/react'
+import { Button, IconButton } from '@chakra-ui/react'
 import React from 'react'
 // #endregion Global Imports
 
@@ -14,15 +14,31 @@ export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IPr
   text,
   ...rest
 }: ICallToActionButton.IProps) => (
-  <Button
-    bgColor="brand.500"
-    color="brand.100"
-    borderRadius="full"
-    fontWeight="bold"
-    _active={{ bgColor: 'brand.800', color: 'brand.500' }}
-    _hover={{ bgColor: 'brand.700' }}
-    {...rest}
-  >
-    {text || 'Agendar consulta'}
-  </Button>
+  <>
+    {text ? (
+      <IconButton
+        aria-label="Agendar consulta"
+        bgColor="brand.500"
+        color="brand.100"
+        borderRadius="full"
+        fontWeight="bold"
+        _active={{ bgColor: 'brand.800', color: 'brand.500' }}
+        _hover={{ bgColor: 'brand.700' }}
+        icon={text}
+        {...rest}
+      />
+    ) : (
+      <Button
+        bgColor="brand.500"
+        color="brand.100"
+        borderRadius="full"
+        fontWeight="bold"
+        _active={{ bgColor: 'brand.800', color: 'brand.500' }}
+        _hover={{ bgColor: 'brand.700' }}
+        {...rest}
+      >
+        Agendar consulta
+      </Button>
+    )}
+  </>
 )
