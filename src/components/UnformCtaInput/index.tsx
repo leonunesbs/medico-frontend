@@ -56,6 +56,7 @@ export const UnformCtaInput: React.FC<IUnformCtaInput.IProps> = ({
           id={fieldName}
           ref={inputRef}
           defaultValue={defaultValue}
+          type="email"
           {...rest}
         />
         <InputRightElement w="">
