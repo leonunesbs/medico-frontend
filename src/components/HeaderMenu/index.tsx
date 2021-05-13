@@ -9,40 +9,49 @@ import { Flex } from '@chakra-ui/react'
 // #region Interface Imports
 import { HeaderMenuItem } from '@/components'
 import { IHeaderMenu } from './HeaderMenu'
+import { useRouter } from 'next/dist/client/router'
 // #endregion Interface Imports
 
 export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({
+  // mobileIcon recebe de MobileCollapseMenu
+  // para mostrar seta ao lado do item do menu
   mobileIcon,
   disclosure,
   ...rest
 }: IHeaderMenu.IProps) => {
-  const menuItems = [
+  const router = useRouter()
+
+  const menuItems: IHeaderMenu.IMenuItemProps[] = [
     {
       text: 'Início',
-      isActive: true
+      isActive: false,
+      href: '/'
     },
     {
       text: 'Agenda',
-      isActive: false
+      isActive: false,
+      href: '/agenda'
     },
     {
       text: 'Especialidades',
-      isActive: false
+      isActive: false,
+      href: '/especialidades'
     },
     {
       text: 'Procedimentos',
-      isActive: false
+      isActive: false,
+      href: '/procedimentos'
     }
   ]
 
   return (
     <Flex {...rest}>
-      {menuItems.map((item) => (
+      {menuItems.map((menuItem) => (
         <HeaderMenuItem
-          key={item.text}
-          text={item.text}
-          isActive={item.isActive}
+          key={menuItem.text}
+          menuItem={menuItem}
           mobileIcon={mobileIcon}
+          isActive={router.pathname === menuItem.href}
           onClick={disclosure?.onClose}
         />
       ))}

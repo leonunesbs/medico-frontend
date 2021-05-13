@@ -5,4 +5,10 @@ export declare namespace IHeaderMenu {
     mobileIcon?: boolean
     disclosure?: UseDisclosureProps
   }
+
+  export type IMenuItemProps = {
+    text: string
+    isActive: boolean
+    href: string
+  }
 }
