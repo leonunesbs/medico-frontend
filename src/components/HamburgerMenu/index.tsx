@@ -31,6 +31,7 @@ export const HamburgerMenu: React.FunctionComponent<IHamburgerMenu.IProps> = ({
           <Hamburger
             size={20}
             label="mobileMenu"
+            hideOutline={true}
             color={
               disclosure.isOpen
                 ? theme.colors.brand[100]
