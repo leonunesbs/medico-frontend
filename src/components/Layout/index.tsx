@@ -22,7 +22,7 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
 }: ILayout.IProps) => {
   const router = useRouter()
   const [animatedHeight, setAnimatedHeight] = useState<ResponsiveValue<any>>(
-    '500px'
+    '700px'
   )
 
   const pageHeights = [
