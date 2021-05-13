@@ -1,15 +1,6 @@
 import React from 'react'
 import NextLink from 'next/link'
-import {
-  Flex,
-  Text,
-  Link,
-  LinkBox,
-  LinkOverlay,
-  Wrap,
-  WrapItem,
-  IconButton
-} from '@chakra-ui/react'
+import { Flex, Text, Link, Wrap, WrapItem, IconButton } from '@chakra-ui/react'
 
 import {
   AiFillFacebook,
@@ -41,61 +32,61 @@ export const Footer: React.FC<IFooter.IProps> = ({
     icon: icons[social.name]
   }))
   return (
-    <Flex
-      bgGradient="linear(to-b, brand.500 60%, brand.600)"
-      flexDir="column"
-      color="brand.100"
-      transition="border-radius 0.4s"
-      borderTopLeftRadius={['175px', '175px', '175px', '175px', '300px']}
-    >
+    <section id="footer">
       <Flex
-        w="100%"
-        maxW="1280px"
-        minH="175px"
-        alignSelf="center"
-        py={10}
-        fontWeight="semibold"
-        align="flex-end"
-        flexDir="column"
+        bgGradient="linear(to-b, brand.500 60%, brand.600)"
+        color="brand.100"
+        transition="border-radius 0.4s"
+        borderTopLeftRadius={['100px', '175px', '175px', '175px', '300px']}
+        justify="center"
       >
-        <NextLink href="https://blog.leonunesbs.com.br" passHref>
-          <Link _hover={{ color: 'brand.700' }}>
-            <Text>Blog</Text>
-          </Link>
-        </NextLink>
-        <NextLink href="/sobre">
-          <Link _hover={{ color: 'brand.700' }}>
-            <Text>Sobre</Text>
-          </Link>
-        </NextLink>
-        <Flex h="px" my={2} w="175px" maxW="90%" bgColor="brand.100" />
-        <Wrap justify="center">
-          {socials.map(
-            (social: { id: number; name: string; url: string; icon: any }) => {
-              return (
-                <WrapItem key={social.id}>
-                  <LinkBox>
-                    <LinkOverlay
-                      isExternal
-                      name={social.name}
-                      href={social.url}
-                    >
-                      <IconButton
-                        aria-label={social.name}
-                        icon={social.icon}
-                        fontSize="3xl"
-                        bgColor="transparent"
-                        color="brand.200"
-                        _hover={{ bgColor: 'transparent', color: 'brand.700' }}
-                      />
-                    </LinkOverlay>
-                  </LinkBox>
-                </WrapItem>
-              )
-            }
-          )}
-        </Wrap>
+        <Flex maxW="1280px" flexGrow={1} flexDir="row-reverse">
+          <Flex
+            flexGrow={1}
+            flexDir="column"
+            pr={[4, 4, 4, 4, 2]}
+            py={6}
+            transition="padding 0.4s"
+            align="flex-end"
+            textAlign="right"
+          >
+            <Text fontWeight="bold">Leonardo Nunes</Text>
+            <Text>Generalista CRM-0000</Text>
+            <Text>Rua Aristides Saraiva de Almeida, 960</Text>
+            <Flex h="px" w="100%" mb={2} bgColor="brand.100" />
+            <Wrap justify="center">
+              {socials.map(
+                (social: { id: any; name: string; url: string; icon: any }) => {
+                  return (
+                    <WrapItem key={social.id}>
+                      <NextLink href={social.url} as={social.url} passHref>
+                        <Link isExternal>
+                          <IconButton
+                            borderRadius="full"
+                            aria-label={social.name}
+                            icon={social.icon}
+                            fontSize="3xl"
+                            bgColor="transparent"
+                            color="brand.100"
+                            _hover={{
+                              color: 'brand.700',
+                              bgColor: 'transparent'
+                            }}
+                            _active={{
+                              color: 'brand.500',
+                              bgColor: 'brand.800'
+                            }}
+                          />
+                        </Link>
+                      </NextLink>
+                    </WrapItem>
+                  )
+                }
+              )}
+            </Wrap>
+          </Flex>
+        </Flex>
       </Flex>
-    </Flex>
+    </section>
   )
 }

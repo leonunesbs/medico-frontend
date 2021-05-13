@@ -35,7 +35,7 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
         boxShadow="base"
         flexDir="column"
       >
-        <Flex justify="center" px={2} py={2} {...rest}>
+        <Flex justify="center" p={2} {...rest}>
           <Flex
             flexGrow={1}
             align="center"
