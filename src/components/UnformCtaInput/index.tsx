@@ -11,7 +11,7 @@ import {
   useBreakpointValue
 } from '@chakra-ui/react'
 import { useField } from '@unform/core'
-import { IUnformCtaInput } from './UnformCtaInput'
+import { IUnformCtaInput } from '@/interfaces'
 import { AiOutlineMail } from 'react-icons/ai'
 import { CallToActionButton } from '..'
 import { MdChevronRight } from 'react-icons/md'

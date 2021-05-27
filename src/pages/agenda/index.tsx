@@ -1,11 +1,13 @@
 // region GLOBAL
+import { GetStaticProps } from 'next'
 import React from 'react'
 // endregion
 
 // region LOCAL
 import { IAgendaPage } from '@/interfaces/AgendaPage'
 import { Layout } from '@/components'
-import { GetStaticProps } from 'next'
+import { client } from '@/utils/api'
+import { gql } from '@apollo/client'
 // endregion
 
 const Agenda: React.FC<IAgendaPage.IProps> = ({ socials }: any) => {
@@ -13,16 +15,30 @@ const Agenda: React.FC<IAgendaPage.IProps> = ({ socials }: any) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch('https://leonunesbs.herokuapp.com/homepage')
-  const data = await res.json()
-
+  const { data } = await client.query({
+    query: gql`
+      query {
+        userByEmail(email: "leonunesbs@gmail.com") {
+          social {
+            whatsapp
+            facebook
+            instagram
+            twitter
+            linkedin
+            github
+            twitch
+          }
+        }
+      }
+    `
+  })
   if (!data) {
     return {
       notFound: true
     }
   }
 
-  const { socials } = data
+  const { socials } = data.userByEmail.social
 
   return {
     props: { socials },

@@ -1,6 +1,7 @@
 // #region Global Imports
 import React from 'react'
 import { Flex } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 // #endregion Global Imports
 
 // #region Local Imports
@@ -8,8 +9,7 @@ import { Flex } from '@chakra-ui/react'
 
 // #region Interface Imports
 import { HeaderMenuItem } from '@/components'
-import { IHeaderMenu } from './HeaderMenu'
-import { useRouter } from 'next/dist/client/router'
+import { IHeaderMenu } from '@/interfaces'
 // #endregion Interface Imports
 
 export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({

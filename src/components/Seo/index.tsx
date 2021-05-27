@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { ISeo } from './Seo'
+import { ISeo } from '@/interfaces'
 
 export const Seo = ({ title, description }: ISeo.IProps) => (
   <Head>

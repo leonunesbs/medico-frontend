@@ -1,15 +1,14 @@
 // #region Global Imports
-import { Collapse, Flex } from '@chakra-ui/react'
-import { CallToActionButton } from '@/components'
 import React from 'react'
+import { Collapse, Flex } from '@chakra-ui/react'
 // #endregion Global Imports
 
 // #region Local Imports
+import { CallToActionButton, HeaderMenu } from '@/components'
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IMobileCollapseMenu } from './MobileCollapseMenu'
-import { HeaderMenu } from '../HeaderMenu'
+import { IMobileCollapseMenu } from '@/interfaces'
 // #endregion Interface Imports
 
 export const MobileCollapseMenu: React.FunctionComponent<IMobileCollapseMenu.IProps> = ({

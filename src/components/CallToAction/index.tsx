@@ -1,9 +1,18 @@
+// #region Global Imports
 import React from 'react'
 import NextImage from 'next/image'
 import { Flex, Heading, Text } from '@chakra-ui/react'
+// #endregion Global Imports
 
-import { ICallToAction } from './CallToAction'
+// #region Local Imports
 import { CallToActionForm } from '@/components'
+
+// #endregion Local Imports
+
+// #region Interface Imports
+import { ICallToAction } from '@/interfaces'
+
+// #endregion Interface Imports
 
 export const CallToAction: React.FC<ICallToAction.IProps> = () => {
   return (

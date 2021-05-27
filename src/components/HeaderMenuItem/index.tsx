@@ -9,7 +9,7 @@ import NextLink from 'next/link'
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IHeaderMenuItem } from './HeaderMenuItem'
+import { IHeaderMenuItem } from '@/interfaces'
 // #endregion Interface Imports
 
 export const HeaderMenuItem: React.FunctionComponent<IHeaderMenuItem.IProps> = ({

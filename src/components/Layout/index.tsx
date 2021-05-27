@@ -1,16 +1,15 @@
 // #region Global Imports
 import React, { useEffect, useState } from 'react'
 import { Flex, ResponsiveValue } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 // #endregion Global Imports
 
 // #region Local Imports
-import { Header, Footer, Fonts } from '@/components'
+import { Header, Footer, Fonts, Seo } from '@/components'
 // #endregion Local Imports
 
 // #region Interface Imports
-import { ILayout } from '../MobileCollapseMenu/Layout'
-import { Seo } from '../Seo'
-import { useRouter } from 'next/dist/client/router'
+import { ILayout } from '@/interfaces'
 // #endregion Interface Imports
 
 export const Layout: React.FunctionComponent<ILayout.IProps> = ({

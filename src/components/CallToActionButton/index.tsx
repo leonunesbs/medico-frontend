@@ -1,13 +1,13 @@
 // #region Global Imports
-import { Button, IconButton } from '@chakra-ui/react'
 import React from 'react'
+import { Button, IconButton } from '@chakra-ui/react'
 // #endregion Global Imports
 
 // #region Local Imports
 // #endregion Local Imports
 
 // #region Interface Imports
-import { ICallToActionButton } from './CallToActionButton'
+import { ICallToActionButton } from '@/interfaces'
 // #endregion Interface Imports
 
 export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IProps> = ({

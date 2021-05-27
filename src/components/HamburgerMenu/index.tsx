@@ -8,7 +8,7 @@ import { Squash as Hamburger } from 'hamburger-react'
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IHamburgerMenu } from './HamburgerMenu'
+import { IHamburgerMenu } from '@/interfaces'
 // #endregion Interface Imports
 
 export const HamburgerMenu: React.FunctionComponent<IHamburgerMenu.IProps> = ({

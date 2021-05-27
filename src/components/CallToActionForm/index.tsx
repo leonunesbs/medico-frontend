@@ -1,10 +1,18 @@
+// #region Global Imports
 import React, { useRef } from 'react'
 
 import { Form } from '@unform/web'
 import { FormHandles, SubmitHandler } from '@unform/core'
 
-import { UnformCtaInput } from '../UnformCtaInput'
-import { ICallToActionForm } from './CallToActionForm'
+// #endregion Global Imports
+
+// #region Local Imports
+import { UnformCtaInput } from '@/components'
+// #endregion Local Imports
+
+// #region Interface Imports
+import { ICallToActionForm } from '@/interfaces'
+// #endregion Interface Imports
 
 export const CallToActionForm: React.FC<ICallToActionForm.IProps> = () => {
   const formRef = useRef<FormHandles>(null)

@@ -1,7 +1,9 @@
 import React from 'react'
 import { CallToAction, Layout, Seo } from '@/components'
 import { GetStaticProps } from 'next'
-import { IHomePage } from '@/interfaces/HomeProps'
+import { IHomePage } from '@/interfaces'
+import { client } from '@/utils/api'
+import { gql } from '@apollo/client'
 
 const Home: React.FC<IHomePage.IProps> = ({ socials }) => {
   return (
@@ -13,8 +15,23 @@ const Home: React.FC<IHomePage.IProps> = ({ socials }) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch('https://leonunesbs.herokuapp.com/homepage')
-  const data = await res.json()
+  const { data } = await client.query({
+    query: gql`
+      query {
+        userByEmail(email: "leonunesbs@gmail.com") {
+          social {
+            whatsapp
+            facebook
+            instagram
+            twitter
+            linkedin
+            github
+            twitch
+          }
+        }
+      }
+    `
+  })
 
   if (!data) {
     return {
@@ -22,7 +39,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   }
 
-  const { socials } = data
+  const socials = data.userByEmail.social
 
   return {
     props: { socials },

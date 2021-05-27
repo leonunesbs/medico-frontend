@@ -1,3 +1,4 @@
+// #region Global Imports
 import React from 'react'
 import {
   Icon,
@@ -6,7 +7,15 @@ import {
   IconButton
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { IHeaderLogo } from './HeaderLogo'
+
+// #endregion Global Imports
+
+// #region Local Imports
+// #endregion Local Imports
+
+// #region Interface Imports
+import { IHeaderLogo } from '@/interfaces'
+// #endregion Interface Imports
 
 const Logo = ({ theme }: any) => (
   <g id="logo">

@@ -1,7 +1,6 @@
 // #region Global Imports
 import React, { useRef } from 'react'
 import { Flex, useDisclosure, useOutsideClick } from '@chakra-ui/react'
-
 // #endregion Global Imports
 
 // #region Local Imports
@@ -15,7 +14,7 @@ import {
 // #endregion Local Imports
 
 // #region Interface Imports
-import { IHeader } from './Header'
+import { IHeader } from '@/interfaces'
 // #endregion Interface Imports
 
 export const Header: React.FunctionComponent<IHeader.IProps> = ({
