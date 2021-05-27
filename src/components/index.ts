@@ -1,14 +1,16 @@
-export { Layout } from '@/components/Layout'
-export { Header } from '@/components/Header'
-export { Footer } from '@/components/Footer'
-export { HeaderLogo } from '@/components/HeaderLogo'
-export { CallToAction } from '@/components/CallToAction'
-export { CallToActionButton } from '@/components/CallToActionButton'
-export { CallToActionForm } from '@/components/CallToActionForm'
-export { UnformCtaInput } from '@/components/UnformCtaInput'
-export { Fonts } from '@/components/Fonts'
-export { HeaderMenu } from '@/components/HeaderMenu'
-export { HeaderMenuItem } from '@/components/HeaderMenuItem'
-export { MobileCollapseMenu } from '@/components/MobileCollapseMenu'
-export { HamburgerMenu } from '@/components/HamburgerMenu'
-export { Seo } from '@/components/Seo'
+export {
+  CallToActionButton,
+  CallToActionForm,
+  UnformCtaInput,
+  Fonts,
+  HeaderLogo,
+  HeaderMenuItem,
+  HamburgerMenu,
+  MobileCollapseMenu
+} from '@/components/atoms'
+
+export { CallToAction, HeaderMenu, Seo } from '@/components/molecules'
+
+export { Header, Footer } from '@/components/organisms'
+
+export { Layout } from '@/components/templates'

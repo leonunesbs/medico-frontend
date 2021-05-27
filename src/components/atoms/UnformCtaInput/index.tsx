@@ -13,7 +13,7 @@ import {
 import { useField } from '@unform/core'
 import { IUnformCtaInput } from '@/interfaces'
 import { AiOutlineMail } from 'react-icons/ai'
-import { CallToActionButton } from '..'
+import { CallToActionButton } from '@/components/atoms'
 import { MdChevronRight } from 'react-icons/md'
 
 export const UnformCtaInput: React.FC<IUnformCtaInput.IProps> = ({
