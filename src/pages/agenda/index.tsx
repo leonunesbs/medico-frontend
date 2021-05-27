@@ -4,7 +4,7 @@ import React from 'react'
 // endregion
 
 // region LOCAL
-import { IAgendaPage } from '@/interfaces/AgendaPage'
+import { IAgendaPage } from '@/interfaces'
 import { Layout } from '@/components'
 import { client } from '@/utils/api'
 import { gql } from '@apollo/client'
