@@ -14,6 +14,7 @@ import {
   Button,
   Stack
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 // endregion
 
 // region LOCAL
@@ -23,6 +24,13 @@ import { client } from '@/utils/api'
 // endregion
 
 const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
+  const router = useRouter()
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
   return (
     <Layout height="800px">
       <Seo title={`${paciente.nome} | Paciente`} description="Paciente" />
