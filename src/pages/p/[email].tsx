@@ -69,37 +69,45 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
                 </Text>
               </Flex>
               <Stack mt={2}>
-                {paciente.consultas.edges.map((edge) => {
-                  return (
-                    <LinkBox key={edge.node.dataConsulta}>
-                      <NextLink href="/#" as="/#" passHref>
-                        <LinkOverlay>
-                          <Button
-                            w="full"
-                            justifyContent="space-between"
-                            bgColor="transparent"
-                            flexWrap="wrap"
-                            fontWeight="normal"
-                            _hover={{ fontWeight: 'bold' }}
-                            _active={{ color: 'brand.500' }}
-                            boxShadow="base"
-                          >
-                            <Text>
-                              {new Date(edge.node.dataConsulta).toLocaleString(
-                                'pt-BR',
-                                {
+                {paciente.consultas.edges.map(
+                  (edge: {
+                    node: {
+                      dataConsulta: any
+                      colaborador: {
+                        nome: string
+                      }
+                    }
+                  }) => {
+                    return (
+                      <LinkBox key={edge.node.dataConsulta}>
+                        <NextLink href="/#" as="/#" passHref>
+                          <LinkOverlay>
+                            <Button
+                              w="full"
+                              justifyContent="space-between"
+                              bgColor="transparent"
+                              flexWrap="wrap"
+                              fontWeight="normal"
+                              _hover={{ fontWeight: 'bold' }}
+                              _active={{ color: 'brand.500' }}
+                              boxShadow="base"
+                            >
+                              <Text>
+                                {new Date(
+                                  edge.node.dataConsulta
+                                ).toLocaleString('pt-BR', {
                                   timeZone: 'UTC',
                                   dateStyle: 'short'
-                                }
-                              )}
-                            </Text>
-                            <Text>{edge.node.colaborador.nome}</Text>
-                          </Button>
-                        </LinkOverlay>
-                      </NextLink>
-                    </LinkBox>
-                  )
-                })}
+                                })}
+                              </Text>
+                              <Text>{edge.node.colaborador.nome}</Text>
+                            </Button>
+                          </LinkOverlay>
+                        </NextLink>
+                      </LinkBox>
+                    )
+                  }
+                )}
               </Stack>
             </Flex>
           </WrapItem>
