@@ -6,5 +6,6 @@ export declare namespace ILayout {
     children: ReactNode
     isHeaded?: boolean
     isFootered?: boolean
+    height: string | string[]
   }
 }

@@ -4,7 +4,7 @@ import { IHomePage } from '@/interfaces'
 
 const Home: React.FC<IHomePage.IProps> = () => {
   return (
-    <Layout>
+    <Layout height={['700px', '800px', '880px', '600px']}>
       <Seo />
       <CallToAction />
     </Layout>

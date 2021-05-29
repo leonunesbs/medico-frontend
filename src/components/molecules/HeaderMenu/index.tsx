@@ -35,7 +35,7 @@ export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({
     {
       text: 'Especialidades',
       isActive: false,
-      href: '/especialidades'
+      href: '/p/leonunesbs@gmail.com'
     },
     {
       text: 'Procedimentos',

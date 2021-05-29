@@ -9,6 +9,6 @@ import { Layout } from '@/components'
 // endregion
 
 const Agenda: React.FC<IAgendaPage.IProps> = () => {
-  return <Layout>Agenda</Layout>
+  return <Layout height="100px">Agenda</Layout>
 }
 export default Agenda

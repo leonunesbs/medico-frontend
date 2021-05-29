@@ -1,7 +1,6 @@
 // #region Global Imports
 import React, { useEffect, useState } from 'react'
 import { Flex, ResponsiveValue } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 // #endregion Global Imports
 
 // #region Local Imports
@@ -16,35 +15,15 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   children,
   isHeaded = true,
   isFootered = true,
+  height = '0px',
   ...rest
 }: ILayout.IProps) => {
-  const router = useRouter()
   const [animatedHeight, setAnimatedHeight] = useState<ResponsiveValue<any>>(
-    '700px'
+    '0px'
   )
-
-  const pageHeights = [
-    {
-      pahtname: '/',
-      height: ['700px', '800px', '880px', '600px']
-    },
-    {
-      pahtname: '/agenda',
-      height: '200px'
-    },
-    {
-      pahtname: '/p',
-      height: '200px'
-    }
-  ]
-
   useEffect(() => {
-    pageHeights.map(
-      (page) =>
-        router.pathname.includes(page.pahtname) &&
-        setAnimatedHeight(page.height)
-    )
-  }, [router.pathname])
+    setAnimatedHeight(height)
+  }, [height])
   return (
     <Flex
       id="layout"
@@ -63,7 +42,7 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
         <Flex
           maxW="1280px"
           flexGrow={1}
-          transition="height 0.3s, transform 0.3s"
+          transition="height 0.5s"
           h={animatedHeight}
         >
           {children}

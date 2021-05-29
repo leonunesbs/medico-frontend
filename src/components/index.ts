@@ -6,7 +6,8 @@ export {
   HeaderLogo,
   HeaderMenuItem,
   HamburgerMenu,
-  MobileCollapseMenu
+  MobileCollapseMenu,
+  GradientHeading
 } from '@/components/atoms'
 
 export { CallToAction, HeaderMenu, Seo } from '@/components/molecules'

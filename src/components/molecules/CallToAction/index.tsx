@@ -26,7 +26,6 @@ export const CallToAction: React.FC<ICallToAction.IProps> = () => {
           as="h1"
           fontWeight="black"
           size="3xl"
-          isTruncated
           bgGradient="linear(to-br, brand.500,  brand.600)"
           bgClip="text"
           mb={10}
