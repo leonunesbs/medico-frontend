@@ -152,7 +152,7 @@ export async function getStaticPaths() {
         }
       })
     ),
-    fallback: false
+    fallback: true
   }
 }
 
