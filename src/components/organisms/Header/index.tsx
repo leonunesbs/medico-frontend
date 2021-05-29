@@ -33,8 +33,9 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
         bgColor="brand.100"
         boxShadow="base"
         flexDir="column"
+        {...rest}
       >
-        <Flex justify="center" p={2} {...rest}>
+        <Flex justify="center" p={2}>
           <Flex
             flexGrow={1}
             align="center"

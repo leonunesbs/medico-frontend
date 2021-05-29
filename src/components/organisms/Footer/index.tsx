@@ -97,8 +97,9 @@ export const Footer: React.FC<IFooter.IProps> = () => {
         boxShadow="inner"
         color="brand.100"
         transition="border-radius 0.4s"
-        borderTopLeftRadius={['100px', '175px', '175px', '175px', '300px']}
+        borderTopLeftRadius={['85px', '125px']}
         justify="center"
+        zIndex={50}
       >
         <Flex maxW="1280px" flexGrow={1} flexDir="row-reverse">
           <Flex

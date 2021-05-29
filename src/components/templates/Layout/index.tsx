@@ -43,7 +43,9 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
       >
         {isHeaded && <Header />}
       </Flex>
-      <Flex align="center" justify="center" mt={['70px', '100px', '145px']}>
+      {/* Gambiarra pro espaçamento do content */}
+      <Header d={['initial', 'none']} visibility="hidden" />
+      <Flex align="center" justify="center">
         <Flex
           maxW="1280px"
           flexGrow={1}
