@@ -35,7 +35,12 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
     >
       <Seo />
       <Fonts />
-      <Flex flexDir="column" position="fixed" w="100%" zIndex={50}>
+      <Flex
+        flexDir="column"
+        position={['fixed', 'initial']}
+        w="100%"
+        zIndex={50}
+      >
         {isHeaded && <Header />}
       </Flex>
       <Flex align="center" justify="center" mt={['70px', '100px', '145px']}>

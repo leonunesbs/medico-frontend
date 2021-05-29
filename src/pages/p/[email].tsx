@@ -29,7 +29,18 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div>Loading...</div>
+    return (
+      <Layout height="500px">
+        <Heading
+          as="h1"
+          textAlign="center"
+          bgGradient="linear(to-br, brand.500,  brand.600)"
+          bgClip="text"
+        >
+          Carregando...
+        </Heading>
+      </Layout>
+    )
   }
   return (
     <Layout height="800px">
@@ -77,44 +88,50 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
                 </Text>
               </Flex>
               <Stack mt={2}>
-                {paciente.consultas.edges.map(
-                  (edge: {
-                    node: {
-                      dataConsulta: any
-                      colaborador: {
-                        nome: string
+                {paciente.consultas.edges.length > 0 ? (
+                  paciente.consultas.edges.map(
+                    (edge: {
+                      node: {
+                        dataConsulta: any
+                        colaborador: {
+                          nome: string
+                        }
                       }
+                    }) => {
+                      return (
+                        <LinkBox key={edge.node.dataConsulta}>
+                          <NextLink href="/#" as="/#" passHref>
+                            <LinkOverlay>
+                              <Button
+                                w="full"
+                                justifyContent="space-between"
+                                bgColor="transparent"
+                                flexWrap="wrap"
+                                fontWeight="normal"
+                                _hover={{ fontWeight: 'bold' }}
+                                _active={{ color: 'brand.500' }}
+                                boxShadow="base"
+                              >
+                                <Text>
+                                  {new Date(
+                                    edge.node.dataConsulta
+                                  ).toLocaleString('pt-BR', {
+                                    timeZone: 'UTC',
+                                    dateStyle: 'short'
+                                  })}
+                                </Text>
+                                <Text>{edge.node.colaborador.nome}</Text>
+                              </Button>
+                            </LinkOverlay>
+                          </NextLink>
+                        </LinkBox>
+                      )
                     }
-                  }) => {
-                    return (
-                      <LinkBox key={edge.node.dataConsulta}>
-                        <NextLink href="/#" as="/#" passHref>
-                          <LinkOverlay>
-                            <Button
-                              w="full"
-                              justifyContent="space-between"
-                              bgColor="transparent"
-                              flexWrap="wrap"
-                              fontWeight="normal"
-                              _hover={{ fontWeight: 'bold' }}
-                              _active={{ color: 'brand.500' }}
-                              boxShadow="base"
-                            >
-                              <Text>
-                                {new Date(
-                                  edge.node.dataConsulta
-                                ).toLocaleString('pt-BR', {
-                                  timeZone: 'UTC',
-                                  dateStyle: 'short'
-                                })}
-                              </Text>
-                              <Text>{edge.node.colaborador.nome}</Text>
-                            </Button>
-                          </LinkOverlay>
-                        </NextLink>
-                      </LinkBox>
-                    )
-                  }
+                  )
+                ) : (
+                  <Text textAlign="center" as="i">
+                    Não há consultas anteriores.
+                  </Text>
                 )}
               </Stack>
             </Flex>
@@ -168,21 +185,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data } = await client.query({
     query: gql`
       query getPaciente($email: String!) {
-        pacientes(user_Email: $email) {
-          edges {
-            node {
-              nome
-              idade
-              dataDeNascimento
-              cpf
-              consultas {
-                edges {
-                  node {
-                    dataConsulta
-                    colaborador {
-                      nome
-                    }
-                  }
+        pacienteByEmail(email: $email) {
+          nome
+          idade
+          dataDeNascimento
+          cpf
+          consultas {
+            edges {
+              node {
+                dataConsulta
+                colaborador {
+                  nome
                 }
               }
             }
@@ -194,10 +207,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       email: params?.email
     }
   })
-
   return {
     props: {
-      paciente: data.pacientes.edges[0].node
+      paciente: data.pacienteByEmail
     },
     revalidate: 1
   }
