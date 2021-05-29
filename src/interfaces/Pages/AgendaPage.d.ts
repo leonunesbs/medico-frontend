@@ -1,5 +1,7 @@
 import { FlexProps } from '@chakra-ui/react'
 
 export declare namespace IAgendaPage {
-  type IProps = FlexProps
+  interface IProps extends FlexProps {
+    paciente: any
+  }
 }

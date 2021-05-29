@@ -14,6 +14,7 @@ import {
   AiOutlineWhatsApp
 } from 'react-icons/ai'
 
+import { gql, useQuery } from '@apollo/client'
 // #endregion Global Imports
 
 // #region Local Imports
@@ -24,48 +25,68 @@ import { IFooter } from '@/interfaces'
 
 // #endregion Interface Imports
 
-export const Footer: React.FC<IFooter.IProps> = ({ socials: data }) => {
+const GET_SOCIALS = gql`
+  query {
+    userByEmail(email: "leonunesbs@gmail.com") {
+      social {
+        whatsapp
+        facebook
+        instagram
+        twitter
+        linkedin
+        github
+        twitch
+      }
+    }
+  }
+`
+
+export const Footer: React.FC<IFooter.IProps> = () => {
+  const { data: query } = useQuery<IFooter.ISocialsProps>(GET_SOCIALS)
+
+  const data = query?.userByEmail.social
+
   const socials = [
     {
       id: 1,
       name: 'facebook',
-      url: data.facebook,
+      url: data?.facebook || 'https://facebook.com/',
       icon: <AiFillFacebook />
     },
     {
       id: 2,
       name: 'instagram',
-      url: data.instagram,
+      url: data?.instagram || 'https://instagram.com',
       icon: <AiFillInstagram />
     },
     {
       id: 3,
       name: 'twitter',
-      url: data.twitter,
+      url: data?.twitter || 'https://instagram.com',
       icon: <AiFillTwitterSquare />
     },
     {
       id: 4,
       name: 'github',
-      url: data.github,
+      url: data?.github || 'https://github.com',
       icon: <AiFillGithub />
     },
     {
       id: 5,
       name: 'linkedin',
-      url: data.linkedin,
+      url: data?.linkedin || 'https://instagram.com',
       icon: <AiFillLinkedin />
     },
     {
       id: 6,
       name: 'whatsapp',
-      url: data.whatsapp,
+      url: data?.whatsapp || 'https://wa.me',
       icon: <AiOutlineWhatsApp />
     },
     {
       id: 7,
       name: 'twitch',
-      url: data.twitch,
+      url: data?.twitch || 'https://twitch.com',
       icon: <FaTwitch />
     }
   ]

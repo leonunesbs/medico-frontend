@@ -16,7 +16,6 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   children,
   isHeaded = true,
   isFootered = true,
-  socials,
   ...rest
 }: ILayout.IProps) => {
   const router = useRouter()
@@ -27,10 +26,14 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   const pageHeights = [
     {
       pahtname: '/',
-      height: ['700px', '800px', '800px', '600px']
+      height: ['700px', '800px', '880px', '600px']
     },
     {
       pahtname: '/agenda',
+      height: '200px'
+    },
+    {
+      pahtname: '/p',
       height: '200px'
     }
   ]
@@ -38,7 +41,8 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   useEffect(() => {
     pageHeights.map(
       (page) =>
-        page.pahtname === router.pathname && setAnimatedHeight(page.height)
+        router.pathname.includes(page.pahtname) &&
+        setAnimatedHeight(page.height)
     )
   }, [router.pathname])
   return (
@@ -55,8 +59,7 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
       <Flex flexDir="column" position="fixed" w="100%" zIndex={50}>
         {isHeaded && <Header />}
       </Flex>
-      <Flex h={[16, 32, 20]} />
-      <Flex align="center" justify="center">
+      <Flex align="center" justify="center" mt={['70px', '100px', '145px']}>
         <Flex
           maxW="1280px"
           flexGrow={1}
@@ -66,7 +69,7 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
           {children}
         </Flex>
       </Flex>
-      {isFootered && <Footer socials={socials} />}
+      {isFootered && <Footer />}
     </Flex>
   )
 }
