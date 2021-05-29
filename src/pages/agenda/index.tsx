@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   }
 
-  const { socials } = data.userByEmail.social
+  const socials = data.userByEmail.social
 
   return {
     props: { socials },
