@@ -52,7 +52,10 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
     >
       <Seo />
       <Fonts />
-      {isHeaded && <Header />}
+      <Flex flexDir="column" position="fixed" w="100%" zIndex={50}>
+        {isHeaded && <Header />}
+      </Flex>
+      <Flex h={[14, 16, 32, 20]} />
       <Flex align="center" justify="center">
         <Flex
           maxW="1280px"
