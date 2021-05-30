@@ -2,6 +2,7 @@ export {
   CallToActionButton,
   CallToActionForm,
   UnformCtaInput,
+  UnformTextareaInput,
   Fonts,
   HeaderLogo,
   HeaderMenuItem,

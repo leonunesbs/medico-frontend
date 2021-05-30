@@ -1,6 +1,6 @@
 // region GLOBAL
-import React from 'react'
-import { gql } from '@apollo/client'
+import React, { useRef } from 'react'
+import { gql, useMutation } from '@apollo/client'
 import { GetStaticProps } from 'next'
 import {
   Flex,
@@ -11,10 +11,7 @@ import {
   Button,
   Stack,
   Circle,
-  Avatar,
-  Collapse,
-  useDisclosure,
-  Textarea
+  Avatar
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 // endregion
@@ -24,14 +21,37 @@ import { IAgendaPage } from '@/interfaces'
 import { Layout, Seo, GradientHeading, CustomButton } from '@/components'
 import { client } from '@/utils/api'
 import { Form } from '@unform/web'
+import { FormHandles, SubmitHandler } from '@unform/core'
+import { UnformTextareaInput } from '@/components/atoms'
 // endregion
+const NOVA_CONSULTA = gql`
+  mutation novaConsulta(
+    $pacienteId: ID!
+    $anamnese: String
+    $exameFisico: String
+  ) {
+    novaConsulta(
+      pacienteId: $pacienteId
+      anamnese: $anamnese
+      exameFisico: $exameFisico
+    ) {
+      consulta {
+        anamnese
+        exameFisico
+      }
+    }
+  }
+`
 
 const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
   const router = useRouter()
+  const formRef = useRef<FormHandles>(null)
+
+  const [novaConsulta, { data: novaConsultaData }] = useMutation(NOVA_CONSULTA)
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
-  if (router.isFallback) {
+  if (router.isFallback || !paciente || !consultas) {
     return (
       <Layout height="100px">
         <Flex w="100%" justify="center">
@@ -46,8 +66,22 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
       </Layout>
     )
   }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleNovaConsulta = () => {}
+
+  const handleNovaConsulta: SubmitHandler<IAgendaPage.FormData> = async (
+    formData
+  ) => {
+    localStorage.setItem(
+      'token',
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imxlb251bmVzYnNAZ21haWwuY29tIiwiZXhwIjoxNjIyMzgzNzg4LCJvcmlnSWF0IjoxNjIyMzgzNDg4fQ.-VT8YxF5d5YSFZW-GzXaiZsnt11kIXkHYv9qF71PmCQ'
+    )
+    novaConsulta({
+      variables: {
+        pacienteId: paciente.id,
+        ...formData
+      }
+    })
+  }
+
   return (
     <Layout height={['950px', '950px']}>
       <Seo title={`${paciente.nome} | Paciente`} description="Paciente" />
@@ -94,7 +128,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
           >
             <GradientHeading size="sm">Nova consulta</GradientHeading>
             <Flex flexDir="column" w="100%">
-              <Form onSubmit={handleNovaConsulta}>
+              <Form ref={formRef} onSubmit={handleNovaConsulta}>
                 <Flex
                   flexDir="column"
                   align="flex-start"
@@ -103,7 +137,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
                   <Text fontSize="sm" color="brand.700" fontWeight="semibold">
                     Anamnese
                   </Text>
-                  <Textarea focusBorderColor="brand.500" />
+                  <UnformTextareaInput name="anamnese" />
                   <Text
                     fontSize="sm"
                     color="brand.700"
@@ -112,8 +146,8 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
                   >
                     Exame físico
                   </Text>
-                  <Textarea focusBorderColor="brand.500" />
-                  <CustomButton alignSelf="flex-end" mt={2}>
+                  <UnformTextareaInput name="exameFisico" />
+                  <CustomButton type="submit" alignSelf="center" mt={2}>
                     Finalizar consulta
                   </CustomButton>
                 </Flex>
@@ -156,7 +190,6 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
                     }) => {
                       // eslint-disable-next-line no-irregular-whitespace
                       // Gambiarra
-                      const { isOpen, onToggle } = useDisclosure()
                       return (
                         <Flex
                           flexDir="column"
@@ -177,8 +210,6 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
                                 'linear(to-br, brand.500,  brand.600)',
                               fontWeight: 'bold'
                             }}
-                            onClick={onToggle}
-                            isActive={isOpen}
                           >
                             <Text>
                               {new Date(edge.node.dataConsulta).toLocaleString(
@@ -191,35 +222,6 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
                             </Text>
                             <Text>{edge.node.colaborador.nome}</Text>
                           </Button>
-                          <Collapse in={isOpen} animateOpacity>
-                            <Flex
-                              flexDir="column"
-                              p={4}
-                              align="flex-start"
-                              borderBottomRadius="md"
-                            >
-                              <Text
-                                fontSize="sm"
-                                color="brand.700"
-                                fontWeight="semibold"
-                              >
-                                Anamnese
-                              </Text>
-                              <Text color="brand.700">
-                                {edge.node.anamnese}
-                              </Text>
-                              <Text
-                                fontSize="sm"
-                                color="brand.700"
-                                fontWeight="semibold"
-                              >
-                                Exame físico
-                              </Text>
-                              <Text color="brand.700">
-                                {edge.node.exameFisico}
-                              </Text>
-                            </Flex>
-                          </Collapse>
                         </Flex>
                       )
                     }
@@ -270,16 +272,7 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data } = await client.query({
     query: gql`
-      query getPaciente($email: String!) {
-        pacienteByEmail(email: $email) {
-          nome
-          idade
-          dataDeNascimento
-          cpf
-          user {
-            email
-          }
-        }
+      query getStaticProps($email: String!) {
         consultas(orderBy: "-dataConsulta", paciente_User_Email: $email) {
           edges {
             node {
@@ -291,6 +284,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
               anamnese
               exameFisico
             }
+          }
+        }
+        pacienteByEmail(email: $email) {
+          id
+          nome
+          idade
+          dataDeNascimento
+          cpf
+          user {
+            email
           }
         }
       }

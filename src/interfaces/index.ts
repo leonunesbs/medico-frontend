@@ -1,6 +1,7 @@
 export type { IHomePage } from '@/interfaces/Pages/HomeProps'
 export type { IAgendaPage } from '@/interfaces/Pages/AgendaPage'
-export type { IUnformCtaInput } from '@/interfaces/CallToAction/UnformCtaInput'
+export type { IUnformCtaInput } from '@/interfaces/Inputs/UnformCtaInput'
+export type { IUnformTextareaInput } from '@/interfaces/Inputs/UnformTextareaInput'
 export type { ISeo } from '@/interfaces/Seo'
 export type { IMobileCollapseMenu } from '@/interfaces/Header/MobileCollapseMenu'
 export type { ILayout } from '@/interfaces/Layout'
