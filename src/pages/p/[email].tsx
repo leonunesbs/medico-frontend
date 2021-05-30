@@ -1,6 +1,6 @@
 // region GLOBAL
-import React, { useState } from 'react'
-import { gql, useQuery } from '@apollo/client'
+import React from 'react'
+import { gql } from '@apollo/client'
 import { GetStaticProps } from 'next'
 import {
   Flex,
@@ -12,20 +12,21 @@ import {
   Stack,
   Circle,
   Avatar,
-  Box,
   Collapse,
-  useDisclosure
+  useDisclosure,
+  Textarea
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 // endregion
 
 // region LOCAL
 import { IAgendaPage } from '@/interfaces'
-import { Layout, Seo, GradientHeading } from '@/components'
+import { Layout, Seo, GradientHeading, CustomButton } from '@/components'
 import { client } from '@/utils/api'
+import { Form } from '@unform/web'
 // endregion
 
-const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
+const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
   const router = useRouter()
 
   // If the page is not yet generated, this will be displayed
@@ -45,10 +46,12 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
       </Layout>
     )
   }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const handleNovaConsulta = () => {}
   return (
     <Layout height={['950px', '950px']}>
       <Seo title={`${paciente.nome} | Paciente`} description="Paciente" />
-      <Flex flexDir="column" flexGrow={1} my={4} p={2}>
+      <Flex flexDir="column" flexGrow={1} p={2}>
         <Flex flexDir="column" align="center">
           <Circle size="140px" p={1} bgColor="brand.500" mb={2}>
             <Avatar
@@ -86,9 +89,36 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
             borderRadius="md"
             flexGrow={1}
             p={4}
+            alignItems="center"
+            h="100%"
           >
-            {' '}
-            Teste
+            <GradientHeading size="sm">Nova consulta</GradientHeading>
+            <Flex flexDir="column" w="100%">
+              <Form onSubmit={handleNovaConsulta}>
+                <Flex
+                  flexDir="column"
+                  align="flex-start"
+                  borderBottomRadius="md"
+                >
+                  <Text fontSize="sm" color="brand.700" fontWeight="semibold">
+                    Anamnese
+                  </Text>
+                  <Textarea focusBorderColor="brand.500" />
+                  <Text
+                    fontSize="sm"
+                    color="brand.700"
+                    fontWeight="semibold"
+                    mt={2}
+                  >
+                    Exame físico
+                  </Text>
+                  <Textarea focusBorderColor="brand.500" />
+                  <CustomButton alignSelf="flex-end" mt={2}>
+                    Finalizar consulta
+                  </CustomButton>
+                </Flex>
+              </Form>
+            </Flex>
           </WrapItem>
 
           <WrapItem
@@ -97,6 +127,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
             borderRadius="md"
             flexGrow={1}
             alignItems="center"
+            h="100%"
             p={4}
           >
             <GradientHeading size="sm">Histórico de consultas</GradientHeading>
@@ -110,8 +141,8 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
                 </Text>
               </Flex>
               <Stack mt={2}>
-                {paciente.consultas.edges.length > 0 ? (
-                  paciente.consultas.edges.map(
+                {consultas.edges.length > 0 ? (
+                  consultas.edges.map(
                     (edge: {
                       node: {
                         id: string
@@ -139,7 +170,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
                             bgColor="transparent"
                             flexWrap="wrap"
                             fontWeight="normal"
-                            _hover={{ fontWeight: 'semibold' }}
+                            _hover={{ color: 'semibold' }}
                             _active={{
                               color: 'brand.100',
                               bgGradient:
@@ -165,7 +196,6 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente }) => {
                               flexDir="column"
                               p={4}
                               align="flex-start"
-                              color="white"
                               borderBottomRadius="md"
                             >
                               <Text
@@ -249,17 +279,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           user {
             email
           }
-          consultas {
-            edges {
-              node {
-                id
-                dataConsulta
-                colaborador {
-                  nome
-                }
-                anamnese
-                exameFisico
+        }
+        consultas(orderBy: "-dataConsulta", paciente_User_Email: $email) {
+          edges {
+            node {
+              id
+              dataConsulta
+              colaborador {
+                nome
               }
+              anamnese
+              exameFisico
             }
           }
         }
@@ -271,7 +301,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   })
   return {
     props: {
-      paciente: data.pacienteByEmail
+      paciente: data.pacienteByEmail,
+      consultas: data.consultas
     },
     revalidate: 1
   }

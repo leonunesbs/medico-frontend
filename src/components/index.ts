@@ -7,7 +7,8 @@ export {
   HeaderMenuItem,
   HamburgerMenu,
   MobileCollapseMenu,
-  GradientHeading
+  GradientHeading,
+  CustomButton
 } from '@/components/atoms'
 
 export { CallToAction, HeaderMenu, Seo } from '@/components/molecules'

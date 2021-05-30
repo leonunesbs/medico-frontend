@@ -99,7 +99,6 @@ export const Footer: React.FC<IFooter.IProps> = () => {
         transition="border-radius 0.4s"
         borderTopLeftRadius={['85px', '125px']}
         justify="center"
-        zIndex={50}
       >
         <Flex maxW="1280px" flexGrow={1} flexDir="row-reverse">
           <Flex

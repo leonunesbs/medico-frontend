@@ -45,17 +45,21 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
       </Flex>
       {/* Gambiarra pro espaçamento do content */}
       <Header d={['initial', 'none']} visibility="hidden" />
-      <Flex align="center" justify="center">
+      {/* FIM GAMBIRARRA */}
+      <Flex align="center" justify="center" py={4}>
         <Flex
           maxW="1280px"
           flexGrow={1}
           transition="height 0.5s"
           h={animatedHeight}
+          overflowY="auto"
         >
           {children}
         </Flex>
       </Flex>
-      {isFootered && <Footer />}
+      <Flex flexDir="column" w="100%" zIndex={40}>
+        {isFootered && <Footer />}
+      </Flex>
     </Flex>
   )
 }
