@@ -7,8 +7,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '@/styles/theme'
 import { useRouter } from 'next/router'
 import * as gtag from '@/utils/gtag'
-import { ApolloProvider } from '@apollo/client'
-import { client } from '@/utils/api'
+import { QueryClientProvider } from 'react-query'
+import { queryClient } from '@/utils/api'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -24,11 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
   return (
-    <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
-    </ApolloProvider>
+    </QueryClientProvider>
   )
 }
 

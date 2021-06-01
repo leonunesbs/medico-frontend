@@ -1,7 +1,5 @@
 // region GLOBAL
 import React, { useRef } from 'react'
-import { gql, useMutation } from '@apollo/client'
-import { GetStaticProps } from 'next'
 import {
   Flex,
   Heading,
@@ -14,40 +12,125 @@ import {
   Avatar
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { Form } from '@unform/web'
+import { FormHandles, SubmitHandler } from '@unform/core'
+import request, { gql, GraphQLClient } from 'graphql-request'
+
 // endregion
 
 // region LOCAL
 import { IAgendaPage } from '@/interfaces'
 import { Layout, Seo, GradientHeading, CustomButton } from '@/components'
-import { client } from '@/utils/api'
-import { Form } from '@unform/web'
-import { FormHandles, SubmitHandler } from '@unform/core'
 import { UnformTextareaInput } from '@/components/atoms'
+import { endpoint, queryClient } from '@/utils/api'
+import { useMutation, useQuery } from 'react-query'
+import { GetStaticProps } from 'next'
+
 // endregion
-const NOVA_CONSULTA = gql`
-  mutation novaConsulta(
-    $pacienteId: ID!
-    $anamnese: String
-    $exameFisico: String
-  ) {
-    novaConsulta(
-      pacienteId: $pacienteId
-      anamnese: $anamnese
-      exameFisico: $exameFisico
-    ) {
-      consulta {
-        anamnese
-        exameFisico
+
+const client: GraphQLClient = new GraphQLClient(endpoint)
+
+function getPaciente(email = 'email@email.com', initalData: any = {}) {
+  return useQuery('paciente', async () => {
+    const data = await client.request(
+      gql`
+        query getPaciente($email: String!) {
+          pacienteByEmail(email: $email) {
+            id
+            nome
+            idade
+            dataDeNascimento
+            cpf
+            user {
+              email
+            }
+          }
+        }
+      `,
+      {
+        email: email
+      }
+    )
+    return data.pacienteByEmail
+  })
+}
+
+function getConsultas(email = 'email@email.com', initalData: any = {}) {
+  return useQuery('consultas', async () => {
+    const data = await client.request(
+      gql`
+        query getConsultas($email: String!) {
+          consultas(orderBy: "-dataConsulta", paciente_User_Email: $email) {
+            edges {
+              node {
+                id
+                dataConsulta
+                colaborador {
+                  nome
+                }
+                anamnese
+                exameFisico
+              }
+            }
+          }
+        }
+      `,
+      {
+        email: email
+      }
+    )
+    return data.consultas
+  })
+}
+
+const Paciente: React.FC<IAgendaPage.IProps> = ({
+  paciente: initialPaciente,
+  consultas: initialConsultas
+}) => {
+  const router = useRouter()
+  const { email } = router.query
+  const formRef = useRef<FormHandles>(null)
+  const { data: paciente } = getPaciente(email?.toString(), initialPaciente)
+  const { data: consultas } = getConsultas(email?.toString(), initialConsultas)
+
+  const novaConsulta = useMutation(
+    (formData: any) => {
+      return client.request(
+        gql`
+          mutation novaConsulta(
+            $pacienteId: ID!
+            $anamnese: String
+            $exameFisico: String
+          ) {
+            novaConsulta(
+              pacienteId: $pacienteId
+              anamnese: $anamnese
+              exameFisico: $exameFisico
+            ) {
+              consulta {
+                id
+                dataConsulta
+                colaborador {
+                  nome
+                }
+                anamnese
+                exameFisico
+              }
+            }
+          }
+        `,
+        formData
+      )
+    },
+    {
+      onSuccess: (data) => {
+        queryClient.setQueryData('consultas', {
+          ...consultas,
+          edges: [...consultas.edges, { node: data.novaConsulta.consulta }]
+        })
       }
     }
-  }
-`
-
-const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
-  const router = useRouter()
-  const formRef = useRef<FormHandles>(null)
-
-  const [novaConsulta, { data: novaConsultaData }] = useMutation(NOVA_CONSULTA)
+  )
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
@@ -74,12 +157,11 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
       'token',
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imxlb251bmVzYnNAZ21haWwuY29tIiwiZXhwIjoxNjIyMzgzNzg4LCJvcmlnSWF0IjoxNjIyMzgzNDg4fQ.-VT8YxF5d5YSFZW-GzXaiZsnt11kIXkHYv9qF71PmCQ'
     )
-    novaConsulta({
-      variables: {
-        pacienteId: paciente.id,
-        ...formData
-      }
+    novaConsulta.mutate({
+      pacienteId: paciente.id,
+      ...formData
     })
+    formRef.current?.reset()
   }
 
   return (
@@ -147,7 +229,12 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
                     Exame físico
                   </Text>
                   <UnformTextareaInput name="exameFisico" />
-                  <CustomButton type="submit" alignSelf="center" mt={2}>
+                  <CustomButton
+                    type="submit"
+                    alignSelf="center"
+                    mt={2}
+                    isLoading={novaConsulta.isLoading}
+                  >
                     Finalizar consulta
                   </CustomButton>
                 </Flex>
@@ -240,9 +327,9 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
   )
 }
 
-export async function getStaticPaths() {
-  const { data } = await client.query({
-    query: gql`
+export const getStaticPaths = async () => {
+  const data: any = await client.request(
+    gql`
       query {
         pacientes {
           edges {
@@ -255,8 +342,8 @@ export async function getStaticPaths() {
         }
       }
     `
-  })
-
+  )
+  console.log(data)
   return {
     paths: data.pacientes.edges.map(
       (edge: { node: { user: { email: any } } }) => ({
@@ -270,8 +357,8 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await client.query({
-    query: gql`
+  const data: any = await client.request(
+    gql`
       query getStaticProps($email: String!) {
         consultas(orderBy: "-dataConsulta", paciente_User_Email: $email) {
           edges {
@@ -298,10 +385,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         }
       }
     `,
-    variables: {
-      email: params?.email
+    {
+      email: params?.email,
+      authorization: ''
     }
-  })
+  )
   return {
     props: {
       paciente: data.pacienteByEmail,

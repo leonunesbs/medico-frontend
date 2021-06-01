@@ -14,7 +14,6 @@ import {
   AiOutlineWhatsApp
 } from 'react-icons/ai'
 
-import { gql, useQuery } from '@apollo/client'
 // #endregion Global Imports
 
 // #region Local Imports
@@ -22,28 +21,38 @@ import { gql, useQuery } from '@apollo/client'
 
 // #region Interface Imports
 import { IFooter } from '@/interfaces'
+import { useQuery } from 'react-query'
+import { endpoint } from '@/utils/api'
+import request, { gql } from 'graphql-request'
 
 // #endregion Interface Imports
 
-const GET_SOCIALS = gql`
-  query {
-    userByEmail(email: "leonunesbs@gmail.com") {
-      social {
-        whatsapp
-        facebook
-        instagram
-        twitter
-        linkedin
-        github
-        twitch
-      }
-    }
-  }
-`
+const getSocials = function getSocials() {
+  return useQuery('socials', async () => {
+    const data = await request(
+      endpoint,
+      gql`
+        query {
+          userByEmail(email: "leonunesbs@gmail.com") {
+            social {
+              whatsapp
+              facebook
+              instagram
+              twitter
+              linkedin
+              github
+              twitch
+            }
+          }
+        }
+      `
+    )
+    return data
+  })
+}
 
 export const Footer: React.FC<IFooter.IProps> = () => {
-  const { data: query } = useQuery<IFooter.ISocialsProps>(GET_SOCIALS)
-
+  const { data: query } = getSocials()
   const data = query?.userByEmail.social
 
   const socials = [
