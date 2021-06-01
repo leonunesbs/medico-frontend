@@ -255,7 +255,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
             boxShadow="base"
             borderRadius="md"
             flexGrow={1}
-            p={4}
+            p={2}
             alignItems="center"
             h="100%"
           >
@@ -304,7 +304,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
             flexGrow={1}
             alignItems="center"
             h="100%"
-            p={4}
+            p={2}
           >
             <GradientHeading size="sm">Histórico de consultas</GradientHeading>
             <Flex flexDir="column" w="100%" mt={2}>
