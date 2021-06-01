@@ -89,6 +89,10 @@ function getConsultas(email = 'email@email.com', first = 2, initalData = {}) {
                   consulta
                 }
               }
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+              }
             }
           }
         `,
@@ -119,7 +123,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
   const formRef = useRef<FormHandles>(null)
   const { data: paciente } = getPaciente(email?.toString(), initialPaciente)
 
-  const [consultaDisplayQtd, setConsultaDisplayQtd] = useState(3)
+  const [consultaDisplayQtd, setConsultaDisplayQtd] = useState(2)
   const {
     data: consultas,
     refetch: consultasRefetch,
@@ -127,10 +131,11 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
   } = getConsultas(email?.toString(), consultaDisplayQtd, initialConsultas)
 
   const [consulta, setConsulta] = useState(`
-  ## Anamnese 
-  ...
-  ## Exame físico
-  ...`)
+## Anamnese 
+...
+## Exame físico
+...
+  `)
 
   const novaConsulta = useMutation(
     (formData: any) => {
@@ -174,6 +179,9 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
 
   useEffect(() => {
     consultasRefetch()
+    if (consultaDisplayQtd < 2) {
+      setConsultaDisplayQtd(2)
+    }
   }, [consultaDisplayQtd])
 
   // If the page is not yet generated, this will be displayed
@@ -271,7 +279,8 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
                     style={{
                       display: 'flex',
                       width: '100%',
-                      flexDirection: 'column'
+                      flexDirection: 'column',
+                      backgroundColor: 'transparent'
                     }}
                     height={300}
                   />
@@ -325,7 +334,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
               </Stack>
             </Flex>
             <Stack isInline align="center" justify="center">
-              {consultaDisplayQtd > 2 && (
+              {consultas.edges.length > 2 && (
                 <IconButton
                   aria-label="ver menos"
                   onClick={() => setConsultaDisplayQtd(consultaDisplayQtd - 2)}
@@ -338,17 +347,19 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
                   icon={<Icon as={AiOutlineMinus} w={4} h={4} />}
                 />
               )}
-              <IconButton
-                aria-label="ver mais"
-                onClick={() => setConsultaDisplayQtd(consultaDisplayQtd + 2)}
-                isLoading={consultasIsLoading}
-                bgColor="transparent"
-                _active={{ color: 'brand.800' }}
-                _hover={{ bgColor: 'transparent', color: 'brand.500' }}
-                _focus={{}}
-                color="brand.700"
-                icon={<Icon as={AiOutlinePlus} w={4} h={4} />}
-              />
+              {consultas.pageInfo.hasNextPage && (
+                <IconButton
+                  aria-label="ver mais"
+                  onClick={() => setConsultaDisplayQtd(consultaDisplayQtd + 2)}
+                  isLoading={consultasIsLoading}
+                  bgColor="transparent"
+                  _active={{ color: 'brand.800' }}
+                  _hover={{ bgColor: 'transparent', color: 'brand.500' }}
+                  _focus={{}}
+                  color="brand.700"
+                  icon={<Icon as={AiOutlinePlus} w={4} h={4} />}
+                />
+              )}
             </Stack>
           </WrapItem>
         </Wrap>
@@ -403,6 +414,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
               }
               consulta
             }
+          }
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
           }
         }
         pacienteByEmail(email: $email) {
