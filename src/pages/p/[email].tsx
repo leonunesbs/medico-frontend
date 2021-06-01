@@ -216,7 +216,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
     )
   }
   return (
-    <Layout height={['950px', '950px']}>
+    <Layout height={['1280px', '1280px']}>
       <Seo title={`${paciente.nome} | Paciente`} description="Paciente" />
       <Flex flexDir="column" flexGrow={1} p={2}>
         <Flex flexDir="column" align="center">
