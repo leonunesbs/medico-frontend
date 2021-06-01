@@ -11,15 +11,15 @@ import {
   Text,
   useDisclosure
 } from '@chakra-ui/react'
+import MDEditor from '@uiw/react-md-editor'
 
 interface IConsultaCard extends FlexProps {
   edge: {
     node: {
       id: string
-      anamnese: string
+      consulta: string
       colaborador: { nome: string }
       dataConsulta: string
-      exameFisico: string
     }
   }
 }
@@ -55,16 +55,7 @@ export const ConsultaCard = ({ edge, ...rest }: IConsultaCard) => {
         <Flex flexDir="column" p={4}>
           <Stack>
             <Flex flexDir="column">
-              <Text fontSize="sm" fontWeight="light">
-                Anamnese
-              </Text>
-              <Text>{edge.node.anamnese}</Text>
-            </Flex>
-            <Flex flexDir="column">
-              <Text fontSize="sm" fontWeight="light">
-                Exame físico
-              </Text>
-              <Text>{edge.node.exameFisico}</Text>
+              <MDEditor.Markdown source={edge.node.consulta} />
             </Flex>
           </Stack>
           {/* <Stack isInline justify="flex-end">

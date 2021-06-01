@@ -1,5 +1,5 @@
 // region GLOBAL
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Flex,
   Heading,
@@ -10,12 +10,17 @@ import {
   Stack,
   Circle,
   Avatar,
-  Input
+  Input,
+  IconButton,
+  Icon
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Form } from '@unform/web'
 import { FormHandles, SubmitHandler } from '@unform/core'
 import { gql } from 'graphql-request'
+
+import '@uiw/react-md-editor/dist/markdown-editor.css'
+import '@uiw/react-markdown-preview/dist/markdown.css'
 
 // endregion
 
@@ -26,52 +31,26 @@ import { ConsultaCard, UnformTextareaInput } from '@/components/atoms'
 import { queryClient, client } from '@/utils/api'
 import { useMutation, useQuery } from 'react-query'
 import { GetStaticProps } from 'next'
+import MDEditor from '@uiw/react-md-editor'
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
 // endregion
 
 function getPaciente(email = 'email@email.com', initalData: any = {}) {
-  return useQuery('paciente', async () => {
-    const data = await client.request(
-      gql`
-        query getPaciente($email: String!) {
-          pacienteByEmail(email: $email) {
-            id
-            nome
-            idade
-            dataDeNascimento
-            cpf
-            user {
-              email
-            }
-          }
-        }
-      `,
-      {
-        email: email
-      }
-    )
-    return data.pacienteByEmail
-  })
-}
-
-function getConsultas(email = 'email@email.com', initalData: any = {}) {
   return useQuery(
-    'consultas',
+    'paciente',
     async () => {
       const data = await client.request(
         gql`
-          query getConsultas($email: String!) {
-            consultas(orderBy: "-dataConsulta", paciente_User_Email: $email) {
-              edges {
-                node {
-                  id
-                  dataConsulta
-                  colaborador {
-                    nome
-                  }
-                  anamnese
-                  exameFisico
-                }
+          query getPaciente($email: String!) {
+            pacienteByEmail(email: $email) {
+              id
+              nome
+              idade
+              dataDeNascimento
+              cpf
+              user {
+                email
               }
             }
           }
@@ -80,12 +59,55 @@ function getConsultas(email = 'email@email.com', initalData: any = {}) {
           email: email
         }
       )
+      return data.pacienteByEmail
+    },
+    {
+      initialData: initalData
+    }
+  )
+}
+
+function getConsultas(email = 'email@email.com', first = 2, initalData = {}) {
+  return useQuery(
+    'consultas',
+    async () => {
+      const data = await client.request(
+        gql`
+          query getConsultas($email: String!, $first: Int) {
+            consultas(
+              orderBy: "-dataConsulta"
+              paciente_User_Email: $email
+              first: $first
+            ) {
+              edges {
+                node {
+                  id
+                  dataConsulta
+                  colaborador {
+                    nome
+                  }
+                  consulta
+                }
+              }
+            }
+          }
+        `,
+        {
+          email: email,
+          first: first
+        }
+      )
       return data.consultas
     },
     {
-      refetchOnMount: true
+      initialData: initalData
     }
   )
+}
+
+const listener = (ev: any) => {
+  ev.preventDefault()
+  return (ev.returnValue = 'Are you sure you want to close?')
 }
 
 const Paciente: React.FC<IAgendaPage.IProps> = ({
@@ -96,30 +118,33 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
   const { email } = router.query
   const formRef = useRef<FormHandles>(null)
   const { data: paciente } = getPaciente(email?.toString(), initialPaciente)
-  const { data: consultas } = getConsultas(email?.toString(), initialConsultas)
+
+  const [consultaDisplayQtd, setConsultaDisplayQtd] = useState(3)
+  const {
+    data: consultas,
+    refetch: consultasRefetch,
+    isLoading: consultasIsLoading
+  } = getConsultas(email?.toString(), consultaDisplayQtd, initialConsultas)
+
+  const [consulta, setConsulta] = useState(`
+  ## Anamnese 
+  ...
+  ## Exame físico
+  ...`)
 
   const novaConsulta = useMutation(
     (formData: any) => {
       return client.request(
         gql`
-          mutation novaConsulta(
-            $pacienteId: ID!
-            $anamnese: String
-            $exameFisico: String
-          ) {
-            novaConsulta(
-              pacienteId: $pacienteId
-              anamnese: $anamnese
-              exameFisico: $exameFisico
-            ) {
+          mutation novaConsulta($pacienteId: ID!, $consulta: String) {
+            novaConsulta(pacienteId: $pacienteId, consulta: $consulta) {
               consulta {
                 id
                 dataConsulta
                 colaborador {
                   nome
                 }
-                anamnese
-                exameFisico
+                consulta
               }
             }
           }
@@ -130,16 +155,26 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
     {
       onSuccess: (data) => {
         formRef.current?.reset()
+        setConsulta('')
         queryClient.setQueryData('consultas', {
           ...consultas,
-          edges: [...consultas.edges, { node: data.novaConsulta.consulta }]
+          edges: [{ node: data.novaConsulta.consulta }, ...consultas.edges]
         })
+        window.removeEventListener('beforeunload', listener)
       },
       onError: (error) => {
         console.log(error)
       }
     }
   )
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', listener)
+  }, [])
+
+  useEffect(() => {
+    consultasRefetch()
+  }, [consultaDisplayQtd])
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
@@ -159,12 +194,10 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
     )
   }
 
-  const handleNovaConsulta: SubmitHandler<IAgendaPage.FormData> = async (
-    formData
-  ) => {
+  const handleNovaConsulta: SubmitHandler<IAgendaPage.FormData> = async () => {
     novaConsulta.mutate({
       pacienteId: paciente.id,
-      ...formData
+      consulta: consulta
     })
   }
 
@@ -218,7 +251,9 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
             alignItems="center"
             h="100%"
           >
-            <GradientHeading size="sm">Nova consulta</GradientHeading>
+            <GradientHeading size="sm" mb={2}>
+              Nova consulta
+            </GradientHeading>
             <Flex flexDir="column" w="100%">
               <Form ref={formRef} onSubmit={handleNovaConsulta}>
                 <Flex
@@ -226,18 +261,24 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
                   align="flex-start"
                   borderBottomRadius="md"
                 >
-                  <Text fontSize="sm" color="brand.700">
-                    Anamnese
-                  </Text>
-                  <UnformTextareaInput name="anamnese" isRequired />
-                  <Text fontSize="sm" color="brand.700" mt={2}>
-                    Exame físico
-                  </Text>
-                  <UnformTextareaInput name="exameFisico" isRequired />
+                  <MDEditor
+                    value={consulta}
+                    onChange={(value) =>
+                      value &&
+                      (setConsulta(value),
+                      localStorage.setItem('consulta', value))
+                    }
+                    style={{
+                      display: 'flex',
+                      width: '100%',
+                      flexDirection: 'column'
+                    }}
+                    height={300}
+                  />
                   <CustomButton
                     type="submit"
                     alignSelf="center"
-                    mt={2}
+                    my={2}
                     isLoading={novaConsulta.isLoading}
                   >
                     Finalizar consulta
@@ -268,10 +309,9 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
                     (edge: {
                       node: {
                         id: string
-                        anamnese: string
+                        consulta: string
                         colaborador: { nome: string }
                         dataConsulta: string
-                        exameFisico: string
                       }
                     }) => {
                       return <ConsultaCard key={edge.node.id} edge={edge} />
@@ -284,6 +324,32 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({
                 )}
               </Stack>
             </Flex>
+            <Stack isInline align="center" justify="center">
+              {consultaDisplayQtd > 2 && (
+                <IconButton
+                  aria-label="ver menos"
+                  onClick={() => setConsultaDisplayQtd(consultaDisplayQtd - 2)}
+                  isLoading={consultasIsLoading}
+                  bgColor="transparent"
+                  _active={{ color: 'brand.800' }}
+                  _hover={{ bgColor: 'transparent', color: 'brand.500' }}
+                  _focus={{}}
+                  color="brand.700"
+                  icon={<Icon as={AiOutlineMinus} w={4} h={4} />}
+                />
+              )}
+              <IconButton
+                aria-label="ver mais"
+                onClick={() => setConsultaDisplayQtd(consultaDisplayQtd + 2)}
+                isLoading={consultasIsLoading}
+                bgColor="transparent"
+                _active={{ color: 'brand.800' }}
+                _hover={{ bgColor: 'transparent', color: 'brand.500' }}
+                _focus={{}}
+                color="brand.700"
+                icon={<Icon as={AiOutlinePlus} w={4} h={4} />}
+              />
+            </Stack>
           </WrapItem>
         </Wrap>
       </Flex>
@@ -326,7 +392,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         consultas(
           orderBy: "-dataConsulta"
           paciente_User_Email: $email
-          first: 5
+          first: 2
         ) {
           edges {
             node {
@@ -335,8 +401,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
               colaborador {
                 nome
               }
-              anamnese
-              exameFisico
+              consulta
             }
           }
         }
