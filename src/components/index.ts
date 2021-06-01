@@ -9,7 +9,8 @@ export {
   HamburgerMenu,
   MobileCollapseMenu,
   GradientHeading,
-  CustomButton
+  CustomButton,
+  ConsultaCard
 } from '@/components/atoms'
 
 export { CallToAction, HeaderMenu, Seo } from '@/components/molecules'

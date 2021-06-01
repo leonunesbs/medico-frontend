@@ -1,5 +1,6 @@
 export { CallToActionButton } from '@/components/atoms/CallToActionButton'
 export { CallToActionForm } from '@/components/atoms/CallToActionForm'
+export { ConsultaCard } from '@/components/atoms/ConsultaCard'
 export { UnformCtaInput } from '@/components/atoms/UnformCtaInput'
 export { UnformTextareaInput } from '@/components/atoms/UnformTextareaInput'
 export { Fonts } from '@/components/atoms/Fonts'
