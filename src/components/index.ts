@@ -13,7 +13,13 @@ export {
   ConsultaCard
 } from '@/components/atoms'
 
-export { CallToAction, HeaderMenu, Seo } from '@/components/molecules'
+export {
+  CallToAction,
+  HeaderMenu,
+  Seo,
+  ConsultaTab,
+  IdPacienteCard
+} from '@/components/molecules'
 
 export { Header, Footer } from '@/components/organisms'
 

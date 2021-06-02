@@ -15,3 +15,7 @@ export type { IFooter } from '@/interfaces/Footer'
 export type { ICallToAction } from '@/interfaces/CallToAction'
 export type { ICallToActionForm } from '@/interfaces/CallToAction/CallToActionForm'
 export type { ICallToActionButton } from '@/interfaces/CallToAction/CallToActionButton'
+
+export type { IConsultaTab } from '@/interfaces/molecules/ConsultaTab'
+export type { IIDPacienteCard } from '@/interfaces/molecules/IDPacienteCard'
+export type { IPacienteTabs } from '@/interfaces/organisms/PacienteTabs'
