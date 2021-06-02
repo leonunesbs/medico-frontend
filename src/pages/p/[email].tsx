@@ -7,8 +7,6 @@ import { gql } from 'graphql-request'
 import '@uiw/react-md-editor/dist/markdown-editor.css'
 import '@uiw/react-markdown-preview/dist/markdown.css'
 
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
-
 // endregion
 
 // region LOCAL
