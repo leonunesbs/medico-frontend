@@ -8,7 +8,15 @@ import {
   IconButton,
   Icon,
   Text,
-  Accordion
+  Accordion,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  Button,
+  useDisclosure
 } from '@chakra-ui/react'
 import { Form } from '@unform/web'
 import { FormHandles, SubmitHandler } from '@unform/core'
@@ -19,7 +27,7 @@ import MDEditor from '@uiw/react-md-editor'
 
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
-import { client, queryClient } from '@/utils/api'
+import { client, queryClient } from '@/services/api'
 
 import { GradientHeading, CustomButton, ConsultaCard } from '@/components'
 import { IConsultaTab } from '@/interfaces'
@@ -37,6 +45,10 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
 }) => {
   const formRef = useRef<FormHandles>(null)
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = useRef<any>()
+
+  const [consultaStarted, setConsultaStarted] = useState(false)
   const [consulta, setConsulta] = useState(`
   ## Anamnese 
   ...
@@ -68,12 +80,12 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
       onSuccess: (data) => {
         formRef.current?.reset()
         setConsulta('')
+        setConsultaStarted(false)
         setConsultaDisplayQtd(consultaDisplayQtd + 1)
         queryClient.setQueryData('consultas', {
           ...consultas,
           edges: [{ node: data.novaConsulta.consulta }, ...consultas.edges]
         })
-        window.removeEventListener('beforeunload', listener)
       },
       onError: (error) => {
         console.log(error)
@@ -82,8 +94,16 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
   )
 
   useEffect(() => {
-    window.addEventListener('beforeunload', listener)
-  }, [])
+    if (consultaStarted) {
+      window.addEventListener('beforeunload', listener)
+    } else {
+      window.removeEventListener('beforeunload', listener)
+    }
+  }, [consultaStarted])
+
+  const startConsulta = () => {
+    onOpen()
+  }
 
   const handleNovaConsulta: SubmitHandler = async () => {
     novaConsulta.mutate({
@@ -102,34 +122,98 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
         alignItems="center"
         h="100%"
       >
-        <GradientHeading size="md">Nova consulta</GradientHeading>
-        <Flex flexDir="column" w="100%">
-          <Form ref={formRef} onSubmit={handleNovaConsulta}>
-            <Flex flexDir="column" align="flex-start" borderBottomRadius="md">
-              <MDEditor
-                value={consulta}
-                onChange={(value) =>
-                  value &&
-                  (setConsulta(value), localStorage.setItem('consulta', value))
-                }
-                style={{
-                  display: 'flex',
-                  width: '100%',
-                  flexDirection: 'column'
-                }}
-                height={300}
-              />
-              <CustomButton
-                type="submit"
-                alignSelf="center"
-                m={4}
-                isLoading={novaConsulta.isLoading}
-              >
-                Finalizar consulta
-              </CustomButton>
+        {consultaStarted ? (
+          <>
+            <GradientHeading size="md">Nova consulta</GradientHeading>
+            <Flex flexDir="column" w="100%">
+              <Form ref={formRef} onSubmit={handleNovaConsulta}>
+                <Flex
+                  flexDir="column"
+                  align="flex-start"
+                  borderBottomRadius="md"
+                >
+                  <MDEditor
+                    value={consulta}
+                    onChange={(value) =>
+                      value &&
+                      (setConsulta(value),
+                      localStorage.setItem('consulta', value))
+                    }
+                    style={{
+                      display: 'flex',
+                      width: '100%',
+                      flexDirection: 'column'
+                    }}
+                    height={300}
+                  />
+                  <Stack
+                    m={4}
+                    alignSelf="center"
+                    align="center"
+                    justify="center"
+                  >
+                    <CustomButton
+                      type="submit"
+                      isLoading={novaConsulta.isLoading}
+                    >
+                      Salvar consulta
+                    </CustomButton>
+                    <Button
+                      bgColor="transparent"
+                      _active={{ color: 'brand.800' }}
+                      _hover={{ bgColor: 'transparent', color: 'brand.500' }}
+                      _focus={{}}
+                      size="sm"
+                      onClick={() => setConsultaStarted(false)}
+                    >
+                      Cancelar
+                    </Button>
+                  </Stack>
+                </Flex>
+              </Form>
             </Flex>
-          </Form>
-        </Flex>
+          </>
+        ) : (
+          <Flex flexDirection="column" p={6}>
+            <CustomButton onClick={startConsulta}>Nova consulta</CustomButton>
+            <AlertDialog
+              motionPreset="slideInBottom"
+              leastDestructiveRef={cancelRef}
+              onClose={onClose}
+              isOpen={isOpen}
+              isCentered
+            >
+              <AlertDialogOverlay />
+
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  Iniciar uma nova consulta?
+                </AlertDialogHeader>
+                <AlertDialogCloseButton />
+                <AlertDialogFooter>
+                  <Stack isInline justify="flex-end">
+                    <Button
+                      ref={cancelRef}
+                      onClick={onClose}
+                      bgColor="brand.100"
+                      color="brand.700"
+                    >
+                      Cancelar
+                    </Button>
+                    <CustomButton
+                      onClick={() => {
+                        setConsultaStarted(true)
+                        onClose()
+                      }}
+                    >
+                      Iniciar
+                    </CustomButton>
+                  </Stack>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Flex>
+        )}
       </WrapItem>
 
       <WrapItem

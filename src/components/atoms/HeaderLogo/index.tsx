@@ -17,7 +17,7 @@ import NextLink from 'next/link'
 import { IHeaderLogo } from '@/interfaces'
 // #endregion Interface Imports
 
-const Logo = ({ theme }: any) => (
+export const Logo = ({ theme }: any) => (
   <g id="logo">
     <path
       id="N"

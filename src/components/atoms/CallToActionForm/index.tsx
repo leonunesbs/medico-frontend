@@ -20,6 +20,7 @@ export const CallToActionForm: React.FC<ICallToActionForm.IProps> = () => {
   const handleSubmit: SubmitHandler<ICallToActionForm.CtaFormData> = (data) => {
     console.log(data)
   }
+
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <UnformCtaInput

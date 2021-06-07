@@ -12,9 +12,10 @@ import '@uiw/react-markdown-preview/dist/markdown.css'
 // region LOCAL
 import { IAgendaPage } from '@/interfaces'
 import { IdPacienteCard, Layout, Seo } from '@/components'
-import { client } from '@/utils/api'
-import { GetStaticProps } from 'next'
+import { client } from '@/services/api'
+import { GetServerSideProps } from 'next'
 import { PacienteTabs } from '@/components/organisms'
+import { parseCookies } from 'nookies'
 
 // endregion
 
@@ -40,7 +41,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
   }
 
   return (
-    <Layout height={['1280px', '1280px']}>
+    <Layout height="1440px">
       <Seo title={`${paciente.nome} | Paciente`} description="Paciente" />
       <Flex flexDir="column" flexGrow={1} p={2}>
         <IdPacienteCard paciente={paciente} />
@@ -50,35 +51,18 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
   )
 }
 
-export const getStaticPaths = async () => {
-  const data: any = await client.request(
-    gql`
-      query {
-        pacientes {
-          edges {
-            node {
-              user {
-                email
-              }
-            }
-          }
-        }
-      }
-    `
-  )
-  return {
-    paths: data.pacientes.edges.map(
-      (edge: { node: { user: { email: any } } }) => ({
-        params: {
-          email: edge.node.user.email
-        }
-      })
-    ),
-    fallback: true
-  }
-}
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'medico:token': token } = parseCookies(ctx)
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
   const data: any = await client.request(
     gql`
       query getStaticProps($email: String!) {
@@ -115,15 +99,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       }
     `,
     {
-      email: params?.email
+      email: ctx.params?.email
     }
   )
   return {
     props: {
       paciente: data.pacienteByEmail,
       consultas: data.consultas
-    },
-    revalidate: 1
+    }
   }
 }
 

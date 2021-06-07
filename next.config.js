@@ -1,12 +1,16 @@
-const removeImports = require('next-remove-imports')();
+const removeImports = require('next-remove-imports')
+const withPlugins = require('next-compose-plugins')
+const withImages = require('next-images')
 
-
-module.exports = {
+const nextConfig = {
   future: {
-    webpack5: true,
+    webpack5: true
   },
-};
+  images: {
+    domains: ['github.com']
+  }
+}
 
+module.exports = withPlugins([[withImages]], nextConfig)
 
-
-module.exports = removeImports({});
+module.exports = removeImports({})

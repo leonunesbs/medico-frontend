@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request'
+import { parseCookies } from 'nookies'
 import { QueryClient } from 'react-query'
 
 export const endpoint =
@@ -8,8 +9,8 @@ export const endpoint =
 
 const getHeaders = () => {
   // get the authentication token from local storage if it exists
-  if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('token')
+  const { 'medico:token': token } = parseCookies()
+  if (token) {
     // return the headers to the context so httpLink can read them
     return {
       headers: {

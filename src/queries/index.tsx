@@ -1,4 +1,4 @@
-import { client } from '@/utils/api'
+import { client } from '@/services/api'
 import { gql } from 'graphql-request'
 import { useQuery } from 'react-query'
 

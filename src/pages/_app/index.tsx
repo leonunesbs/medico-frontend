@@ -8,7 +8,8 @@ import theme from '@/styles/theme'
 import { useRouter } from 'next/router'
 import * as gtag from '@/utils/gtag'
 import { QueryClientProvider } from 'react-query'
-import { queryClient } from '@/utils/api'
+import { queryClient } from '@/services/api'
+import { AuthProvider } from '@/context/AuthContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -25,9 +26,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events])
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <AuthProvider>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </AuthProvider>
     </QueryClientProvider>
   )
 }

@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { IIDPacienteCard } from '@/interfaces'
 import { Avatar, Circle, Flex, Heading, Text } from '@chakra-ui/react'
+import { AuthContext } from '@/context/AuthContext'
 
 export const IdPacienteCard: React.FC<IIDPacienteCard.IProps> = ({
   paciente
 }) => {
+  const { signOut } = useContext(AuthContext)
+
   return (
     <>
       <Flex flexDir="column" align="center">
-        <Circle size="140px" p={1} bgColor="brand.500" mb={2}>
+        <Circle size="140px" p={1} bgColor="brand.500" mb={2} onClick={signOut}>
           <Avatar
             size="full"
             name="Ryan Florence"

@@ -16,7 +16,7 @@ import { ICallToAction } from '@/interfaces'
 
 export const CallToAction: React.FC<ICallToAction.IProps> = () => {
   return (
-    <Flex flexWrap="wrap-reverse" px={2}>
+    <Flex flexWrap="wrap-reverse" px={2} overflow="hidden">
       <Flex
         flexDirection="column"
         w={['100%', '100%', '100%', '40%']}

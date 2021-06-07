@@ -35,18 +35,20 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
     >
       <Seo />
       <Fonts />
-      <Flex
-        flexDir="column"
-        position={['fixed', 'initial']}
-        w="100%"
-        zIndex={50}
-      >
-        {isHeaded && <Header />}
-      </Flex>
-      {/* Gambiarra pro espaçamento do content */}
-      <Header d={['initial', 'none']} visibility="hidden" />
-      {/* FIM GAMBIRARRA */}
-      <Flex align="center" justify="center" py={4}>
+      {isHeaded && (
+        <>
+          <Flex
+            flexDir="column"
+            position={['fixed', 'initial']}
+            w="100%"
+            zIndex={50}
+          >
+            <Header />
+          </Flex>
+          <Header d={['initial', 'none']} visibility="hidden" />
+        </>
+      )}
+      <Flex align="center" justify="center">
         <Flex
           maxW="1280px"
           flexGrow={1}

@@ -1,5 +1,6 @@
 export type { IHomePage } from '@/interfaces/Pages/HomeProps'
 export type { IAgendaPage } from '@/interfaces/Pages/AgendaPage'
+export type { ILoginPage } from '@/interfaces/Pages/LoginPage'
 export type { IUnformCtaInput } from '@/interfaces/Inputs/UnformCtaInput'
 export type { IUnformTextareaInput } from '@/interfaces/Inputs/UnformTextareaInput'
 export type { ISeo } from '@/interfaces/Seo'

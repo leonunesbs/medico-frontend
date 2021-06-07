@@ -4,6 +4,7 @@ export {
   UnformCtaInput,
   UnformTextareaInput,
   Fonts,
+  Logo,
   HeaderLogo,
   HeaderMenuItem,
   HamburgerMenu,

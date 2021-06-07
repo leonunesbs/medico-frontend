@@ -22,7 +22,7 @@ import {
 // #region Interface Imports
 import { IFooter } from '@/interfaces'
 import { useQuery } from 'react-query'
-import { endpoint } from '@/utils/api'
+import { endpoint } from '@/services/api'
 import request, { gql } from 'graphql-request'
 
 // #endregion Interface Imports
