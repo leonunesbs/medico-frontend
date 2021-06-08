@@ -12,6 +12,7 @@ import {
   Icon,
   IconButton,
   Stack,
+  Text,
   useDisclosure,
   useOutsideClick
 } from '@chakra-ui/react'
@@ -39,6 +40,7 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
   ...rest
 }: IHeader.IProps) => {
   const mobileNavDisclosure = useDisclosure()
+  const [fullW, setFullW] = useState(false)
   const [loading, setLoading] = useState(false)
   const { isAuthenticated, signOut } = useContext(AuthContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -76,28 +78,44 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
                   bgColor={'transparent'}
                   borderRadius="full"
                   p={0}
-                  transition="background 0.2s ease-in"
+                  transition="background 0.3s"
                   aria-label={isAuthenticated ? 'Sair' : 'Entrar'}
                   color="brand.500"
                   _active={{}}
                   _hover={{ color: 'brand.600' }}
                   isLoading={loading}
+                  onMouseLeave={() => setFullW(false)}
+                  onMouseEnter={() => setFullW(true)}
                   icon={
-                    isAuthenticated ? (
-                      <Icon
-                        as={AiOutlineLogout}
-                        w={6}
-                        h={6}
-                        borderRadius="full"
-                      />
-                    ) : (
-                      <Icon
-                        as={AiOutlineLogin}
-                        w={6}
-                        h={6}
-                        borderRadius="full"
-                      />
-                    )
+                    <Stack
+                      isInline
+                      w={fullW ? '95px' : '25px'}
+                      justify="center"
+                      transition="width 0.3s"
+                    >
+                      {isAuthenticated ? (
+                        <Icon
+                          as={AiOutlineLogout}
+                          w={6}
+                          h={6}
+                          borderRadius="full"
+                        />
+                      ) : (
+                        <Icon
+                          as={AiOutlineLogin}
+                          w={6}
+                          h={6}
+                          borderRadius="full"
+                        />
+                      )}
+                      <Flex d={fullW ? 'flex' : 'none'} align="center">
+                        {isAuthenticated ? (
+                          <Text>Sair</Text>
+                        ) : (
+                          <Text>Entrar</Text>
+                        )}
+                      </Flex>
+                    </Stack>
                   }
                   onClick={() => {
                     if (isAuthenticated) {
