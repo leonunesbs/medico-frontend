@@ -103,6 +103,7 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
                     if (isAuthenticated) {
                       setLoading(true)
                       onOpen()
+                      setLoading(false)
                     } else {
                       setLoading(true)
                       Router.push('/login')
@@ -127,7 +128,6 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
                           ref={cancelRef}
                           onClick={() => {
                             onClose()
-                            setLoading(false)
                           }}
                           bgColor="brand.700"
                           color="brand.100"
@@ -141,7 +141,6 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
                           onClick={() => {
                             signOut()
                             onClose()
-                            setLoading(false)
                           }}
                         >
                           Sair

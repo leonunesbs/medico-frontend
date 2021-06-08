@@ -1,5 +1,5 @@
 // region GLOBAL
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Text,
   FormControl,
@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import NextLink from 'next/link'
-import { parseCookies } from 'nookies'
+import Image from 'next/image'
 
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 // endregion
@@ -26,19 +26,19 @@ import { HiEye, HiEyeOff } from 'react-icons/hi'
 // region LOCAL
 import { ILoginPage } from '@/interfaces'
 import { CustomButton, Layout } from '@/components'
-import { GetServerSideProps } from 'next'
 import { AuthContext } from '@/context/AuthContext'
-import Image from 'next/image'
+import Router from 'next/router'
 // endregion
 
 const LoginPage: React.FC<ILoginPage.IProps> = () => {
   const { isOpen, onToggle } = useDisclosure()
-  const { signIn } = useContext(AuthContext)
+  const { signIn, isAuthenticated } = useContext(AuthContext)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const { register, handleSubmit } = useForm()
+
   const onSubmit = async (data: { email: string; password: string }) => {
     setError('')
     setLoading(true)
@@ -50,6 +50,13 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
       setError(request.response.errors[0].message)
     })
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLoading(true)
+      setTimeout(() => Router.push('/'), 3000)
+    }
+  }, [isAuthenticated])
 
   return (
     <Layout isHeaded={false} isFootered={false} height="100vh">
@@ -96,63 +103,73 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
             p={4}
             spacing={6}
           >
-            <FormControl id="email">
-              <FormLabel color="brand.700">Email</FormLabel>
-              <Input
-                {...register('email')}
-                boxShadow="base"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                focusBorderColor="brand.500"
-                placeholder="Digite seu email"
-              />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel
-                color="brand.700"
-                d="flex"
-                w="100%"
-                justifyContent="space-between"
-                alignItems="flex-end"
-              >
-                <Text>Senha</Text>
-                <NextLink passHref href="/forgot-password">
-                  <Link
-                    color="brand.500"
-                    _hover={{ color: 'brand.600' }}
-                    _active={{ color: 'brand.800' }}
-                    fontSize="xs"
-                    textAlign="right"
-                  >
-                    Esqueceu sua senha?
-                  </Link>
-                </NextLink>
-              </FormLabel>
-              <InputGroup>
-                <Input
-                  {...register('password')}
-                  type={isOpen ? 'text' : 'password'}
-                  boxShadow="base"
-                  name="password"
-                  autoComplete="password"
-                  required
-                  focusBorderColor="brand.500"
-                  placeholder="Digite sua senha"
-                />
-                <InputRightElement>
-                  <IconButton
-                    bg="transparent !important"
-                    variant="ghost"
-                    _focus={{}}
-                    aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-                    icon={isOpen ? <HiEyeOff /> : <HiEye />}
-                    onClick={onToggle}
+            {isAuthenticated ? (
+              <Text textAlign="center" as="i">
+                Autenticado. Você será redirecionado em poucos segundos.
+              </Text>
+            ) : (
+              <>
+                <FormControl id="email">
+                  <FormLabel color="brand.700">Email</FormLabel>
+                  <Input
+                    {...register('email')}
+                    boxShadow="base"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    focusBorderColor="brand.500"
+                    placeholder="Digite seu email"
                   />
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
+                </FormControl>
+                <FormControl id="password">
+                  <FormLabel
+                    color="brand.700"
+                    d="flex"
+                    w="100%"
+                    justifyContent="space-between"
+                    alignItems="flex-end"
+                  >
+                    <Text>Senha</Text>
+                    <NextLink passHref href="/forgot-password">
+                      <Link
+                        color="brand.500"
+                        _hover={{ color: 'brand.600' }}
+                        _active={{ color: 'brand.800' }}
+                        fontSize="xs"
+                        textAlign="right"
+                      >
+                        Esqueceu sua senha?
+                      </Link>
+                    </NextLink>
+                  </FormLabel>
+                  <InputGroup>
+                    <Input
+                      {...register('password')}
+                      type={isOpen ? 'text' : 'password'}
+                      boxShadow="base"
+                      name="password"
+                      autoComplete="password"
+                      required
+                      focusBorderColor="brand.500"
+                      placeholder="Digite sua senha"
+                    />
+                    <InputRightElement>
+                      <IconButton
+                        bg="transparent !important"
+                        variant="ghost"
+                        _focus={{}}
+                        aria-label={
+                          isOpen ? 'Mask password' : 'Reveal password'
+                        }
+                        icon={isOpen ? <HiEyeOff /> : <HiEye />}
+                        onClick={onToggle}
+                      />
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+              </>
+            )}
             {error && (
               <Alert status="error">
                 <AlertIcon />
@@ -163,14 +180,14 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
               <CustomButton type="submit" size="lg" isLoading={loading}>
                 Entrar
               </CustomButton>
-              <NextLink passHref href="#">
+              <NextLink passHref href="/">
                 <Link
                   color="brand.500"
                   _hover={{ color: 'brand.600' }}
                   _active={{ color: 'brand.800' }}
                   textAlign="center"
                 >
-                  Criar conta
+                  Voltar
                 </Link>
               </NextLink>
             </Stack>
@@ -179,23 +196,6 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
       </Flex>
     </Layout>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'medico:token': token } = parseCookies(ctx)
-
-  if (token) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
-  }
-
-  return {
-    props: {}
-  }
 }
 
 export default LoginPage
