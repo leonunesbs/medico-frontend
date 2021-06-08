@@ -23,20 +23,18 @@ export const HamburgerMenu: React.FunctionComponent<IHamburgerMenu.IProps> = ({
         borderRadius="full"
         p={0}
         m={1}
-        transition="background 0.2s ease-in"
+        transition="background 0.2s, color 0.2s"
         aria-label="hamburger-menu"
         _active={{}}
-        _hover={{}}
+        _hover={{ color: disclosure.isOpen ? 'brand.100' : 'brand.600' }}
+        color={
+          disclosure.isOpen ? theme.colors.brand[100] : theme.colors.brand[500]
+        }
         icon={
           <Hamburger
             size={20}
             label="mobileMenu"
             hideOutline={true}
-            color={
-              disclosure.isOpen
-                ? theme.colors.brand[100]
-                : theme.colors.brand[500]
-            }
             toggled={disclosure.isOpen}
             toggle={disclosure.onToggle}
           />

@@ -13,7 +13,7 @@ export const CustomButton = ({ children, ...rest }: CustomButtonProps) => {
       borderRadius="full"
       fontWeight="bold"
       _active={{ bgColor: 'brand.800', color: 'brand.500' }}
-      _hover={{ bgColor: 'brand.700' }}
+      _hover={{ bgColor: 'brand.600' }}
       boxShadow="base"
       {...rest}
     >

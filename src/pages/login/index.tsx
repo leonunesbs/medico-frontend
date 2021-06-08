@@ -12,7 +12,9 @@ import {
   InputRightElement,
   IconButton,
   useDisclosure,
-  Flex
+  Flex,
+  Alert,
+  AlertIcon
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import NextLink from 'next/link'
@@ -26,6 +28,7 @@ import { ILoginPage } from '@/interfaces'
 import { CustomButton, Layout } from '@/components'
 import { GetServerSideProps } from 'next'
 import { AuthContext } from '@/context/AuthContext'
+import Image from 'next/image'
 // endregion
 
 const LoginPage: React.FC<ILoginPage.IProps> = () => {
@@ -44,7 +47,6 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
       password: data.password
     }).catch((request) => {
       setLoading(false)
-      console.log(request.response)
       setError(request.response.errors[0].message)
     })
   }
@@ -56,31 +58,41 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
         flexGrow={1}
         align={['initial', 'center']}
         justify="space-between"
-        h={['130px', '100%']}
       >
         <Flex
-          flexGrow={1}
+          h={['130px', '100%']}
           bgColor="brand.500"
           maxW={['100%', '50%']}
-          h="100%"
+          flexGrow={1}
           align="center"
-          p={10}
+          p={[4, 10]}
         >
-          <Heading as="h1" size="2xl" color="brand.100">
-            Fazer login na plataforma
+          <Heading as="h1" size="2xl" color="brand.100" fontWeight="black">
+            Entrar na plataforma
           </Heading>
         </Flex>
-        <Flex flexGrow={1} maxW={['100%', '40%']}>
+        <Flex
+          flexGrow={1}
+          maxW={['100%', '40%']}
+          h="100%"
+          flexDirection="column"
+          pt={4}
+          justify={['initial', 'center']}
+        >
+          <Image
+            src="/esteto.png"
+            height="135px"
+            width="135px"
+            objectFit="contain"
+          />
           <Stack
             as="form"
             onSubmit={handleSubmit(onSubmit)}
             boxShadow="base"
             borderRadius="md"
             transition="height 0.3s"
-            h={error ? '320px' : '280px'}
             justify="center"
-            flexGrow={1}
-            m={4}
+            m={[4, 4, 10]}
             p={4}
             spacing={6}
           >
@@ -94,12 +106,14 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
                 autoComplete="email"
                 required
                 focusBorderColor="brand.500"
+                placeholder="Digite seu email"
               />
             </FormControl>
             <FormControl id="password">
               <FormLabel
                 color="brand.700"
                 d="flex"
+                w="100%"
                 justifyContent="space-between"
                 alignItems="flex-end"
               >
@@ -107,7 +121,7 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
                 <NextLink passHref href="/forgot-password">
                   <Link
                     color="brand.500"
-                    _hover={{ color: 'brand.700' }}
+                    _hover={{ color: 'brand.600' }}
                     _active={{ color: 'brand.800' }}
                     fontSize="xs"
                     textAlign="right"
@@ -125,6 +139,7 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
                   autoComplete="password"
                   required
                   focusBorderColor="brand.500"
+                  placeholder="Digite sua senha"
                 />
                 <InputRightElement>
                   <IconButton
@@ -139,13 +154,26 @@ const LoginPage: React.FC<ILoginPage.IProps> = () => {
               </InputGroup>
             </FormControl>
             {error && (
-              <Text size="xs" color="brand.500" textAlign="center">
+              <Alert status="error">
+                <AlertIcon />
                 {error}
-              </Text>
+              </Alert>
             )}
-            <CustomButton type="submit" size="lg" isLoading={loading}>
-              Entrar
-            </CustomButton>
+            <Stack flexGrow={1} flexDirection="column">
+              <CustomButton type="submit" size="lg" isLoading={loading}>
+                Entrar
+              </CustomButton>
+              <NextLink passHref href="#">
+                <Link
+                  color="brand.500"
+                  _hover={{ color: 'brand.600' }}
+                  _active={{ color: 'brand.800' }}
+                  textAlign="center"
+                >
+                  Criar conta
+                </Link>
+              </NextLink>
+            </Stack>
           </Stack>
         </Flex>
       </Flex>

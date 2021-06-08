@@ -26,7 +26,7 @@ export const AuthContext = createContext({} as AuthContextType)
 export function AuthProvider({ children }: any) {
   const [payload, setPayload] = useState<Payload | null>(null)
 
-  const isAuthenticated = !!payload
+  const [isAuthenticated, setIsAuthenticated] = useState(!!payload)
 
   useEffect(() => {
     const { 'medico:token': token } = parseCookies()
@@ -35,6 +35,12 @@ export function AuthProvider({ children }: any) {
       recoverPayload(token).then((response) => setPayload(response.payload))
     }
   }, [])
+
+  useEffect(() => {
+    if (payload) {
+      setIsAuthenticated(true)
+    }
+  }, [payload])
 
   async function signIn({ email, password }: SignInData) {
     const { token, payload } = await tokenAuth({
@@ -48,12 +54,13 @@ export function AuthProvider({ children }: any) {
 
     setPayload(payload)
 
-    Router.push('/p/leonunesbs@gmail.com')
+    Router.push('/')
   }
 
   async function signOut() {
-    setPayload(null)
     destroyCookie(undefined, 'medico:token')
+    setPayload(null)
+    setIsAuthenticated(false)
     Router.push('/')
   }
 
