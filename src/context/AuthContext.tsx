@@ -32,15 +32,12 @@ export function AuthProvider({ children }: any) {
     const { 'medico:token': token } = parseCookies()
 
     if (token) {
-      recoverPayload(token).then((response) => setPayload(response.payload))
+      recoverPayload(token).then((response) => {
+        setPayload(response.payload)
+        setIsAuthenticated(!!payload)
+      })
     }
   }, [])
-
-  useEffect(() => {
-    if (payload) {
-      setIsAuthenticated(true)
-    }
-  }, [payload])
 
   async function signIn({ email, password }: SignInData) {
     const { token, payload } = await tokenAuth({
