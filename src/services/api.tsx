@@ -19,6 +19,9 @@ const getHeaders = () => {
     }
   }
 }
+const config = {
+  ...getHeaders()
+}
 
-export const client: GraphQLClient = new GraphQLClient(endpoint, getHeaders())
+export const client: GraphQLClient = new GraphQLClient(endpoint, config)
 export const queryClient = new QueryClient()

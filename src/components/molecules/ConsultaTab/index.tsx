@@ -119,13 +119,14 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
         borderRadius="md"
         flexGrow={1}
         p={2}
-        alignItems="center"
         h="100%"
       >
         {consultaStarted ? (
           <>
-            <GradientHeading size="md">Nova consulta</GradientHeading>
-            <Flex flexDir="column" w="100%">
+            <GradientHeading as="h2" size="sm">
+              Nova consulta
+            </GradientHeading>
+            <Flex flexDir="column" w="100%" mt={2}>
               <Form ref={formRef} onSubmit={handleNovaConsulta}>
                 <Flex
                   flexDir="column"
@@ -151,19 +152,23 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
                     alignSelf="center"
                     align="center"
                     justify="center"
+                    w="100%"
                   >
                     <CustomButton
                       type="submit"
+                      width="full"
                       isLoading={novaConsulta.isLoading}
                     >
                       Salvar consulta
                     </CustomButton>
                     <Button
                       bgColor="transparent"
-                      _active={{ color: 'brand.800' }}
-                      _hover={{ bgColor: 'transparent', color: 'brand.500' }}
+                      color="brand.700"
+                      _active={{ color: 'brand.500' }}
+                      _hover={{ bgColor: 'transparent', color: 'brand.800' }}
                       _focus={{}}
                       size="sm"
+                      width="full"
                       onClick={() => setConsultaStarted(false)}
                     >
                       Cancelar
@@ -174,8 +179,10 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
             </Flex>
           </>
         ) : (
-          <Flex flexDirection="column" p={6}>
-            <CustomButton onClick={startConsulta}>Nova consulta</CustomButton>
+          <Flex flexDirection="column" p={6} w="100%">
+            <CustomButton onClick={startConsulta} w="full">
+              Nova consulta
+            </CustomButton>
             <AlertDialog
               motionPreset="slideInBottom"
               leastDestructiveRef={cancelRef}
@@ -195,8 +202,11 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
                     <Button
                       ref={cancelRef}
                       onClick={onClose}
-                      bgColor="brand.100"
-                      color="brand.700"
+                      bgColor="brand.700"
+                      color="brand.100"
+                      borderRadius="full"
+                      _active={{ bgColor: 'brand.800', color: 'brand.500' }}
+                      _hover={{ bgColor: 'brand.800' }}
                     >
                       Cancelar
                     </Button>
@@ -221,11 +231,12 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
         boxShadow="base"
         borderRadius="md"
         flexGrow={1}
-        alignItems="center"
         h="100%"
         p={2}
       >
-        <GradientHeading size="md">Histórico de consultas</GradientHeading>
+        <GradientHeading as="h2" size="sm">
+          Histórico de consultas
+        </GradientHeading>
         <Flex flexDir="column" w="100%" mt={2}>
           <Flex justify="space-between">
             <Text textAlign="left">Data da consulta</Text>

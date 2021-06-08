@@ -1,6 +1,12 @@
 // #region Global Imports
 import React, { useRef } from 'react'
-import { Flex, useDisclosure, useOutsideClick } from '@chakra-ui/react'
+import {
+  Flex,
+  Icon,
+  IconButton,
+  useDisclosure,
+  useOutsideClick
+} from '@chakra-ui/react'
 // #endregion Global Imports
 
 // #region Local Imports
@@ -15,6 +21,8 @@ import {
 
 // #region Interface Imports
 import { IHeader } from '@/interfaces'
+import { AiOutlineLogin } from 'react-icons/ai'
+import NextLink from 'next/link'
 // #endregion Interface Imports
 
 export const Header: React.FunctionComponent<IHeader.IProps> = ({
@@ -52,6 +60,21 @@ export const Header: React.FunctionComponent<IHeader.IProps> = ({
               <CallToActionButton
                 d={['none', 'none', 'none', 'none', 'flex', 'flex']}
               />
+              <NextLink href="/login" as="/login">
+                <IconButton
+                  bgColor={'transparent'}
+                  borderRadius="full"
+                  p={0}
+                  m={1}
+                  transition="background 0.2s ease-in"
+                  aria-label="Entrar"
+                  _active={{}}
+                  _hover={{}}
+                  icon={
+                    <Icon as={AiOutlineLogin} w={6} h={6} borderRadius="full" />
+                  }
+                />
+              </NextLink>
               <HamburgerMenu
                 disclosure={mobileNavDisclosure}
                 d={['flex', 'flex', 'flex', 'flex', 'none', 'none']}

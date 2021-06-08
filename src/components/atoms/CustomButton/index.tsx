@@ -14,6 +14,7 @@ export const CustomButton = ({ children, ...rest }: CustomButtonProps) => {
       fontWeight="bold"
       _active={{ bgColor: 'brand.800', color: 'brand.500' }}
       _hover={{ bgColor: 'brand.700' }}
+      boxShadow="base"
       {...rest}
     >
       {children}

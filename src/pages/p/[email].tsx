@@ -15,7 +15,7 @@ import { IdPacienteCard, Layout, Seo } from '@/components'
 import { client } from '@/services/api'
 import { GetServerSideProps } from 'next'
 import { PacienteTabs } from '@/components/organisms'
-import { parseCookies } from 'nookies'
+import { destroyCookie, parseCookies } from 'nookies'
 
 // endregion
 
@@ -55,6 +55,29 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { 'medico:token': token } = parseCookies(ctx)
 
   if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  const verifyToken: any = await client.request(
+    gql`
+      mutation($token: String!) {
+        verifyToken(token: $token) {
+          payload
+        }
+      }
+    `,
+    {
+      token: token
+    }
+  )
+
+  if (verifyToken.errors) {
+    destroyCookie(undefined, 'medico:token')
     return {
       redirect: {
         destination: '/login',

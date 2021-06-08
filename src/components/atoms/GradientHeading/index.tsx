@@ -11,11 +11,9 @@ export const GradientHeading = ({
 }: GradientHeadingProps) => {
   return (
     <Heading
-      as="h2"
       textAlign="center"
       bgGradient="linear(to-br, brand.500,  brand.600)"
       bgClip="text"
-      m={4}
       {...rest}
     >
       {children}
