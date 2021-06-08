@@ -1,5 +1,6 @@
 export { CallToAction } from '@/components/molecules/CallToAction'
-export { HeaderMenu } from '@/components/molecules/HeaderMenu'
 export { ConsultaTab } from '@/components/molecules/ConsultaTab'
+export { HeaderMenu } from '@/components/molecules/HeaderMenu'
 export { IdPacienteCard } from '@/components/molecules/IDPacienteCard'
+export { LoginForm } from '@/components/molecules/LoginForm'
 export { Seo } from '@/components/molecules/Seo'

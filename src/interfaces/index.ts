@@ -19,4 +19,6 @@ export type { ICallToActionButton } from '@/interfaces/CallToAction/CallToAction
 
 export type { IConsultaTab } from '@/interfaces/molecules/ConsultaTab'
 export type { IIDPacienteCard } from '@/interfaces/molecules/IDPacienteCard'
+export type { ILoginForm } from '@/interfaces/molecules/LoginForm'
+
 export type { IPacienteTabs } from '@/interfaces/organisms/PacienteTabs'

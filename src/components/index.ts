@@ -1,27 +1,28 @@
 export {
   CallToActionButton,
   CallToActionForm,
-  UnformCtaInput,
-  UnformTextareaInput,
+  ConsultaCard,
+  CustomButton,
   Fonts,
-  Logo,
+  GradientHeading,
+  HamburgerMenu,
   HeaderLogo,
   HeaderMenuItem,
-  HamburgerMenu,
+  Logo,
   MobileCollapseMenu,
-  GradientHeading,
-  CustomButton,
-  ConsultaCard
+  UnformCtaInput,
+  UnformTextareaInput
 } from '@/components/atoms'
 
 export {
   CallToAction,
-  HeaderMenu,
-  Seo,
   ConsultaTab,
-  IdPacienteCard
+  HeaderMenu,
+  IdPacienteCard,
+  LoginForm,
+  Seo
 } from '@/components/molecules'
 
-export { Header, Footer } from '@/components/organisms'
+export { Footer, Header } from '@/components/organisms'
 
 export { Layout } from '@/components/templates'
