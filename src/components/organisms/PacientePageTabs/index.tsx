@@ -1,11 +1,11 @@
 import { ConsultaTab } from '@/components'
-import { IPacienteTabs } from '@/interfaces'
+import { IPacientePageTabs } from '@/interfaces'
 import { getConsultas, getPaciente } from '@/queries'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
-export const PacienteTabs: React.FC<IPacienteTabs.IProps> = ({
+export const PacientePageTabs: React.FC<IPacientePageTabs.IProps> = ({
   consultas: initialConsultas,
   paciente: initialPaciente
 }) => {

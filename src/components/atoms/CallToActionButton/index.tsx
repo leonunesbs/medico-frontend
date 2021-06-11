@@ -23,7 +23,7 @@ export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IPr
         borderRadius="full"
         fontWeight="bold"
         _active={{ bgColor: 'brand.800', color: 'brand.500' }}
-        _hover={{ bgColor: 'brand.700' }}
+        _hover={{ bgColor: 'brand.600' }}
         icon={text}
         {...rest}
       />
@@ -34,7 +34,7 @@ export const CallToActionButton: React.FunctionComponent<ICallToActionButton.IPr
         borderRadius="full"
         fontWeight="bold"
         _active={{ bgColor: 'brand.800', color: 'brand.500' }}
-        _hover={{ bgColor: 'brand.700' }}
+        _hover={{ bgColor: 'brand.600' }}
         {...rest}
       >
         Agendar consulta

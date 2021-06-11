@@ -1,6 +1,8 @@
 export type { IHomePage } from '@/interfaces/Pages/HomeProps'
 export type { IAgendaPage } from '@/interfaces/Pages/AgendaPage'
 export type { ILoginPage } from '@/interfaces/Pages/LoginPage'
+export type { IColaboradorPage } from '@/interfaces/Pages/ColaboradorPage'
+
 export type { IUnformCtaInput } from '@/interfaces/Inputs/UnformCtaInput'
 export type { IUnformTextareaInput } from '@/interfaces/Inputs/UnformTextareaInput'
 export type { ISeo } from '@/interfaces/Seo'
@@ -20,5 +22,6 @@ export type { ICallToActionButton } from '@/interfaces/CallToAction/CallToAction
 export type { IConsultaTab } from '@/interfaces/molecules/ConsultaTab'
 export type { IIDPacienteCard } from '@/interfaces/molecules/IDPacienteCard'
 export type { ILoginForm } from '@/interfaces/molecules/LoginForm'
+export type { ISignInHeaderButton } from '@/interfaces/molecules/SignInHeaderButton'
 
-export type { IPacienteTabs } from '@/interfaces/organisms/PacienteTabs'
+export type { IPacientePageTabs } from '@/interfaces/organisms/PacientePageTabs'

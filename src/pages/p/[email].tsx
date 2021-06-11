@@ -11,10 +11,9 @@ import '@uiw/react-markdown-preview/dist/markdown.css'
 
 // region LOCAL
 import { IAgendaPage } from '@/interfaces'
-import { IdPacienteCard, Layout, Seo } from '@/components'
+import { IdPacienteCard, Layout, Seo, PacientePageTabs } from '@/components'
 import { client } from '@/services/api'
 import { GetServerSideProps } from 'next'
-import { PacienteTabs } from '@/components/organisms'
 import { destroyCookie, parseCookies } from 'nookies'
 
 // endregion
@@ -45,7 +44,7 @@ const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
       <Seo title={`${paciente.nome} | Paciente`} description="Paciente" />
       <Flex flexDir="column" flexGrow={1} p={2}>
         <IdPacienteCard paciente={paciente} />
-        <PacienteTabs paciente={paciente} consultas={consultas} />
+        <PacientePageTabs paciente={paciente} consultas={consultas} />
       </Flex>
     </Layout>
   )

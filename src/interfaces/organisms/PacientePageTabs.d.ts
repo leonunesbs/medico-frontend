@@ -1,6 +1,6 @@
 import { TabsProps } from '@chakra-ui/react'
 
-export declare namespace IPacienteTabs {
+export declare namespace IPacientePageTabs {
   interface IProps extends TabsProps {
     consultas: any
     paciente: any
