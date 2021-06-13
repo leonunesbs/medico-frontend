@@ -46,7 +46,7 @@ const getSocials = function getSocials() {
           }
         }
       `
-    )
+    ).then((data) => data)
     return data
   })
 }

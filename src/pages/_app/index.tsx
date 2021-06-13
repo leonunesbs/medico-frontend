@@ -24,14 +24,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     }
   }, [router.events])
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
           <Component {...pageProps} />
         </ChakraProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </AuthProvider>
   )
 }
 

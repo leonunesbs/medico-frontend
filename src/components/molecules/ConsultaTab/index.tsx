@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import {
   Wrap,
@@ -31,6 +31,7 @@ import { client, queryClient } from '@/services/api'
 
 import { GradientHeading, CustomButton, ConsultaCard } from '@/components'
 import { IConsultaTab } from '@/interfaces'
+import { parseCookies } from 'nookies'
 
 const listener = (ev: any) => {
   ev.preventDefault()
@@ -55,7 +56,7 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
   ## Exame físico
   ...
     `)
-
+  const { 'medico:token': token } = parseCookies()
   const novaConsulta = useMutation(
     (formData: any) => {
       return client.request(
@@ -73,7 +74,10 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
             }
           }
         `,
-        formData
+        formData,
+        {
+          authorization: `JWT ${token}`
+        }
       )
     },
     {
@@ -105,12 +109,12 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
     onOpen()
   }
 
-  const handleNovaConsulta: SubmitHandler = async () => {
+  const handleNovaConsulta: SubmitHandler = useCallback(() => {
     novaConsulta.mutate({
       pacienteId: paciente.id,
       consulta: consulta
     })
-  }
+  }, [])
   return (
     <Wrap spacing={4}>
       <WrapItem

@@ -1,5 +1,5 @@
 // #region Global Imports
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Flex, ResponsiveValue } from '@chakra-ui/react'
 // #endregion Global Imports
 
@@ -9,6 +9,7 @@ import { Header, Footer, Fonts, Seo } from '@/components'
 
 // #region Interface Imports
 import { ILayout } from '@/interfaces'
+import { AuthContext } from '@/context/AuthContext'
 // #endregion Interface Imports
 
 export const Layout: React.FunctionComponent<ILayout.IProps> = ({
@@ -18,12 +19,24 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   height = '0px',
   ...rest
 }: ILayout.IProps) => {
+  const { payload, signOut } = useContext(AuthContext)
+
   const [animatedHeight, setAnimatedHeight] = useState<ResponsiveValue<any>>(
     '0px'
   )
   useEffect(() => {
     setAnimatedHeight(height)
   }, [height])
+
+  useEffect(() => {
+    if (payload) {
+      if (new Date(payload.exp * 1000).getTime() < new Date().getTime()) {
+        alert('Sua sessão expirou!')
+        signOut('/login')
+      }
+    }
+  }, [])
+
   return (
     <Flex
       id="layout"
@@ -48,7 +61,7 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
           <Header d={['initial', 'none']} visibility="hidden" />
         </>
       )}
-      <Flex align="center" justify="center">
+      <Flex align="center" justify="center" h="100%" w="100%">
         <Flex
           maxW="1280px"
           flexGrow={1}

@@ -1,21 +1,19 @@
 // region GLOBAL
 import React from 'react'
-import { Flex, Heading } from '@chakra-ui/react'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { gql } from 'graphql-request'
-
-import '@uiw/react-md-editor/dist/markdown-editor.css'
-import '@uiw/react-markdown-preview/dist/markdown.css'
+import { parseCookies } from 'nookies'
 
 // endregion
-
 // region LOCAL
 import { IAgendaPage } from '@/interfaces'
-import { IdPacienteCard, Layout, Seo, PacientePageTabs } from '@/components'
 import { client } from '@/services/api'
-import { GetServerSideProps } from 'next'
-import { destroyCookie, parseCookies } from 'nookies'
+import { Flex, Heading } from '@chakra-ui/react'
+import '@uiw/react-markdown-preview/dist/markdown.css'
+import '@uiw/react-md-editor/dist/markdown-editor.css'
+import { gql } from 'graphql-request'
 
+import { IdPacienteCard, Layout, PacientePageTabs, Seo } from '@/components'
 // endregion
 
 const Paciente: React.FC<IAgendaPage.IProps> = ({ paciente, consultas }) => {
@@ -56,80 +54,65 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: `/login?next=${ctx.resolvedUrl}`,
         permanent: false
       }
     }
   }
 
-  const verifyToken: any = await client.request(
-    gql`
-      mutation($token: String!) {
-        verifyToken(token: $token) {
-          payload
-        }
-      }
-    `,
-    {
-      token: token
-    }
-  )
-
-  if (verifyToken.errors) {
-    destroyCookie(undefined, 'medico:token')
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false
-      }
-    }
-  }
-
-  const data: any = await client.request(
-    gql`
-      query getStaticProps($email: String!) {
-        consultas(
-          orderBy: "-dataConsulta"
-          paciente_User_Email: $email
-          first: 2
-        ) {
-          edges {
-            node {
-              id
-              dataConsulta
-              colaborador {
-                nome
+  const data: any = await client
+    .request(
+      gql`
+        query($email: String!) {
+          consultas(
+            orderBy: "-dataConsulta"
+            paciente_User_Email: $email
+            first: 2
+          ) {
+            edges {
+              node {
+                id
+                dataConsulta
+                colaborador {
+                  nome
+                }
+                consulta
               }
-              consulta
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
             }
           }
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
+          pacienteByEmail(email: $email) {
+            id
+            nome
+            idade
+            dataDeNascimento
+            cpf
+            user {
+              email
+            }
           }
         }
-        pacienteByEmail(email: $email) {
-          id
-          nome
-          idade
-          dataDeNascimento
-          cpf
-          user {
-            email
-          }
+      `,
+      {
+        email: ctx.params?.email
+      },
+      {
+        authorization: `JWT ${token}`
+      }
+    )
+    .then((data) => {
+      return {
+        props: {
+          paciente: data.pacienteByEmail,
+          consultas: data.consultas
         }
       }
-    `,
-    {
-      email: ctx.params?.email
-    }
-  )
-  return {
-    props: {
-      paciente: data.pacienteByEmail,
-      consultas: data.consultas
-    }
-  }
+    })
+
+  return data
 }
 
 export default Paciente

@@ -13,8 +13,8 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import Router from 'next/router'
-import React, { useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { HiEye, HiEyeOff } from 'react-icons/hi'
@@ -24,6 +24,7 @@ import { AuthContext } from '@/context/AuthContext'
 import { ILoginForm } from '@/interfaces'
 
 export function LoginForm({ ...rest }: ILoginForm.IProps) {
+  const router = useRouter()
   const { isOpen, onToggle } = useDisclosure()
   const { signIn, isAuthenticated } = useContext(AuthContext)
 
@@ -32,24 +33,22 @@ export function LoginForm({ ...rest }: ILoginForm.IProps) {
 
   const { register, handleSubmit } = useForm()
 
+  const { next } = router.query
+
   const onSubmit = async (data: { email: string; password: string }) => {
     setError('')
+
     setLoading(true)
+
     signIn({
       email: data.email,
-      password: data.password
+      password: data.password,
+      redirectTo: next && `${next}`
     }).catch((request: any) => {
       setLoading(false)
       setError(request.response.errors[0].message)
     })
   }
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setLoading(true)
-      setTimeout(() => Router.push('/'), 3000)
-    }
-  }, [isAuthenticated])
   return (
     <Stack
       as="form"

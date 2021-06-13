@@ -43,7 +43,6 @@ export function SignInHeaderButton({ ...rest }: ISignInHeaderButton.IProps) {
         onMouseEnter={() => setFullW(true)}
         icon={
           <Flex
-            isInline
             w={fullW ? '90px' : '25px'}
             transition="width 0.3s"
             justify="space-evenly"
@@ -98,7 +97,7 @@ export function SignInHeaderButton({ ...rest }: ISignInHeaderButton.IProps) {
               </Button>
               <CustomButton
                 onClick={() => {
-                  signOut()
+                  signOut('/login')
                   onClose()
                 }}
               >
