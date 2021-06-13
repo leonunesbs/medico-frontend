@@ -24,7 +24,6 @@ export async function tokenAuth(data: SignInRequestData) {
       }
     )
     .then((data) => data.tokenAuth)
-    .catch((error) => error)
 
   return requestData
 }
@@ -44,7 +43,6 @@ export async function refreshPayload(token: string) {
       }
     )
     .then((data) => data.verifyToken)
-    .catch((error) => error)
 
   return requestData
 }
@@ -65,7 +63,6 @@ export async function refreshToken(token: string) {
       }
     )
     .then((data) => data.refreshToken)
-    .catch((error) => error)
 
   return requestData
 }

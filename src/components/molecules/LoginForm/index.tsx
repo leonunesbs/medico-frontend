@@ -30,6 +30,7 @@ export function LoginForm({ ...rest }: ILoginForm.IProps) {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [timeLeft, setTimeLeft] = useState(3)
 
   const { register, handleSubmit } = useForm()
 
@@ -53,8 +54,14 @@ export function LoginForm({ ...rest }: ILoginForm.IProps) {
   useEffect(() => {
     if (isAuthenticated) {
       setLoading(true)
+
+      if (timeLeft === 0) {
+        router.push('/')
+      }
+
+      setTimeout(() => setTimeLeft(timeLeft - 1), 1000)
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, timeLeft])
   return (
     <Stack
       as="form"
@@ -70,7 +77,8 @@ export function LoginForm({ ...rest }: ILoginForm.IProps) {
     >
       {isAuthenticated ? (
         <Text textAlign="center" as="i">
-          Autenticado. Você será redirecionado em poucos segundos.
+          Autenticado. Você será redirecionado{' '}
+          {timeLeft < 1 ? 'agora.' : `em ${timeLeft} segundos.`}
         </Text>
       ) : (
         <>
