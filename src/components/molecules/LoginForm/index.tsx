@@ -1,3 +1,4 @@
+import React, { useContext, useState, useEffect } from 'react'
 import {
   Alert,
   AlertIcon,
@@ -14,7 +15,6 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { HiEye, HiEyeOff } from 'react-icons/hi'
@@ -49,6 +49,12 @@ export function LoginForm({ ...rest }: ILoginForm.IProps) {
       setError(request.response.errors[0].message)
     })
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLoading(true)
+    }
+  }, [isAuthenticated])
   return (
     <Stack
       as="form"
