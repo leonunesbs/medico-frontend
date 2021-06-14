@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react'
 
 import { CustomButton } from '@/components'
-import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from '@/contexts/AuthContext'
 import { ISignInHeaderButton } from '@/interfaces'
 
 export function SignInHeaderButton({ ...rest }: ISignInHeaderButton.IProps) {

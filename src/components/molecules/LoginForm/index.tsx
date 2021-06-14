@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 
 import { CustomButton } from '@/components'
-import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from '@/contexts/AuthContext'
 import { ILoginForm } from '@/interfaces'
 
 export function LoginForm({ ...rest }: ILoginForm.IProps) {

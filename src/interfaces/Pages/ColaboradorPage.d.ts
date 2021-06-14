@@ -1,5 +1,22 @@
 import { FlexProps } from '@chakra-ui/react'
 
 export declare namespace IColaboradorPage {
-  type IProps = FlexProps
+  interface IProps extends FlexProps {
+    unidades: any
+  }
+
+  interface UnidadesProps {
+    node: {
+      id: string
+      nome: string
+      agendas: {
+        edges: {
+          node: {
+            id: string
+            horario: string
+          }
+        }[]
+      }
+    }
+  }
 }

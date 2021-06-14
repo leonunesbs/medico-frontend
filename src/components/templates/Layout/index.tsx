@@ -9,7 +9,7 @@ import { Header, Footer, Fonts, Seo } from '@/components'
 
 // #region Interface Imports
 import { ILayout } from '@/interfaces'
-import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from '@/contexts/AuthContext'
 // #endregion Interface Imports
 
 export const Layout: React.FunctionComponent<ILayout.IProps> = ({

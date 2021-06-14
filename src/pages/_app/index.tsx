@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import * as gtag from '@/utils/gtag'
 import { QueryClientProvider } from 'react-query'
 import { queryClient } from '@/services/api'
-import { AuthProvider } from '@/context/AuthContext'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
