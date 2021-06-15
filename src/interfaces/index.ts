@@ -23,5 +23,8 @@ export type { IConsultaTab } from '@/interfaces/molecules/ConsultaTab'
 export type { IIDPacienteCard } from '@/interfaces/molecules/IDPacienteCard'
 export type { ILoginForm } from '@/interfaces/molecules/LoginForm'
 export type { ISignInHeaderButton } from '@/interfaces/molecules/SignInHeaderButton'
+export type { IColaboradorAgendaCollapse } from '@/interfaces/molecules/ColaboradorAgendaCollapse'
 
 export type { IPacientePageTabs } from '@/interfaces/organisms/PacientePageTabs'
+export type { IColaboradorProps } from '@/interfaces/organisms/Colaborador'
+export type { IColaboradorUnidades } from '@/interfaces/organisms/ColaboradorUnidades'

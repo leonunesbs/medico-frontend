@@ -9,13 +9,13 @@ import {
   HamburgerMenu,
   HeaderMenu,
   HeaderLogo,
-  MobileCollapseMenu
+  MobileCollapseMenu,
+  SignInHeaderButton
 } from '@/components'
 // #endregion Local Imports
 
 // #region Interface Imports
 import { IHeader } from '@/interfaces'
-import { SignInHeaderButton } from '@/components/molecules'
 // #endregion Interface Imports
 
 export const Header: React.FunctionComponent<IHeader.IProps> = ({

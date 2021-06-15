@@ -9,14 +9,7 @@ export declare namespace IColaboradorPage {
     node: {
       id: string
       nome: string
-      agendas: {
-        edges: {
-          node: {
-            id: string
-            horario: string
-          }
-        }[]
-      }
+      agendas: any
     }
   }
 }

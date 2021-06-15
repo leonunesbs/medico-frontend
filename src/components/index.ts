@@ -10,17 +10,25 @@ export {
   HeaderMenuItem,
   Logo,
   MobileCollapseMenu,
+  SignInHeaderButton,
   UnformCtaInput,
   UnformTextareaInput
 } from '@/components/atoms'
 export {
   CallToAction,
+  ColaboradorAgendasCard,
   ConsultaTab,
   HeaderMenu,
   IdPacienteCard,
   LoginForm,
   Seo,
-  SignInHeaderButton
+  ColaboradorUnidades,
+  ColaboradorAgendasCollapse
 } from '@/components/molecules'
-export { Footer, Header, PacientePageTabs } from '@/components/organisms'
+export {
+  Colaborador,
+  Footer,
+  Header,
+  PacientePageTabs
+} from '@/components/organisms'
 export { Layout } from '@/components/templates'
