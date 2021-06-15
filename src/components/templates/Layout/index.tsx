@@ -10,16 +10,20 @@ import { Header, Footer, Fonts, Seo } from '@/components'
 // #region Interface Imports
 import { ILayout } from '@/interfaces'
 import { AuthContext } from '@/contexts/AuthContext'
+import { useRouter } from 'next/router'
 // #endregion Interface Imports
 
 export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   children,
+  isTokenExpirable = true,
   isHeaded = true,
   isFootered = true,
   height = '0px',
   ...rest
 }: ILayout.IProps) => {
   const { payload, signOut } = useContext(AuthContext)
+
+  const router = useRouter()
 
   const [animatedHeight, setAnimatedHeight] = useState<ResponsiveValue<any>>(
     '0px'
@@ -29,10 +33,10 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   }, [height])
 
   useEffect(() => {
-    if (payload) {
+    if (payload && isTokenExpirable) {
       if (new Date(payload.exp * 1000).getTime() < new Date().getTime()) {
         alert('Sua sessão expirou!')
-        signOut('/login')
+        signOut(`/login?next=${router.asPath}`)
       }
     }
   }, [])

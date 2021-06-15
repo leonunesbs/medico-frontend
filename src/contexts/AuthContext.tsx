@@ -47,13 +47,13 @@ export function AuthProvider({ children }: any) {
   }
 
   async function signOut(redirectTo = '/') {
-    destroyCookie(undefined, 'medico:token')
+    destroyCookie(undefined, 'medico:token', {
+      path: '/'
+    })
     setPayload(null)
     setIsAuthenticated(false)
 
-    Router.push({
-      pathname: redirectTo
-    })
+    Router.push(redirectTo)
   }
 
   async function refresh() {

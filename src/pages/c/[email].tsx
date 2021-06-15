@@ -8,14 +8,14 @@ import { gql } from 'graphql-request'
 
 const Colaborador: React.FC<IColaboradorPage.IProps> = ({ unidades }) => {
   return (
-    <Layout height={['1480px', '720px']}>
+    <Layout height={['1480px', '720px']} isTokenExpirable={false}>
       <ColaboradorComponent unidades={unidades} />
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const data: any = await client
+  const data = await client
     .request(
       gql`
         query($email: String!) {

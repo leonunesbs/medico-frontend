@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai'
 
 import {
@@ -23,6 +23,7 @@ import { AuthContext } from '@/contexts/AuthContext'
 import { ISignInHeaderButton } from '@/interfaces'
 
 export function SignInHeaderButton({ ...rest }: ISignInHeaderButton.IProps) {
+  const router = useRouter()
   const [fullW, setFullW] = useState(false)
   const [loading, setLoading] = useState(false)
   const { isAuthenticated, signOut } = useContext(AuthContext)
@@ -64,7 +65,9 @@ export function SignInHeaderButton({ ...rest }: ISignInHeaderButton.IProps) {
             setLoading(false)
           } else {
             setLoading(true)
-            Router.push('/login')
+            router.push(
+              router.asPath === '/' ? '/login' : `/login?next=${router.asPath}`
+            )
           }
         }}
       />
@@ -97,8 +100,12 @@ export function SignInHeaderButton({ ...rest }: ISignInHeaderButton.IProps) {
               </Button>
               <CustomButton
                 onClick={() => {
-                  signOut('/login')
                   onClose()
+                  signOut(
+                    router.asPath === '/'
+                      ? '/login'
+                      : `/login?next=${router.asPath}`
+                  )
                 }}
               >
                 Sair

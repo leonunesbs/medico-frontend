@@ -56,12 +56,14 @@ export function LoginForm({ ...rest }: ILoginForm.IProps) {
       setLoading(true)
 
       if (timeLeft === 0) {
-        router.push('/')
+        router.push(
+          router.asPath === '/' ? '/login' : `/login?next=${router.asPath}`
+        )
       }
 
       setTimeout(() => setTimeLeft(timeLeft - 1), 1000)
     }
-  }, [isAuthenticated, timeLeft])
+  }, [timeLeft])
   return (
     <Stack
       as="form"
