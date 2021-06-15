@@ -4,7 +4,7 @@ export function dynamicSort(property: string) {
     sortOrder = -1
     property = property.substr(1)
   }
-  return function (a, b) {
+  return function (a: any, b: any) {
     /* next line works with strings and numbers,
      * and you may want to customize it to your needs
      */
@@ -20,7 +20,7 @@ export function dynamicSortNode(property: string) {
     sortOrder = -1
     property = property.substr(1)
   }
-  return function (a, b) {
+  return function (a: any, b: any) {
     /* next line works with strings and numbers,
      * and you may want to customize it to your needs
      */
