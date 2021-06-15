@@ -26,7 +26,7 @@ export {
   ColaboradorAgendasCollapse
 } from '@/components/molecules'
 export {
-  Colaborador,
+  ColaboradorComponent,
   Footer,
   Header,
   PacientePageTabs

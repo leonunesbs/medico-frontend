@@ -1,10 +1,11 @@
-import { GradientHeading } from '@/components'
-import { ColaboradorUnidades } from '@/components/molecules'
-import { IColaboradorProps } from '@/interfaces'
+import { ColaboradorUnidades, GradientHeading } from '@/components'
+import { IColaboradorComponentProps } from '@/interfaces'
 import { Avatar, Circle, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 
-export function Colaborador({ unidades }: IColaboradorProps.IProps) {
+export function ColaboradorComponent({
+  unidades
+}: IColaboradorComponentProps.IProps) {
   return (
     <Flex
       flexWrap="wrap"
@@ -49,8 +50,11 @@ export function Colaborador({ unidades }: IColaboradorProps.IProps) {
             Agenda
           </GradientHeading>
           <Flex flexDir="column">
-            {unidades.map(({ node: unidade }: any) => {
-              return <ColaboradorUnidades unidade={unidade} />
+            {unidades.map(({ node: unidade }) => {
+              if (unidade.agendas.edges.length < 1) {
+                return null
+              }
+              return <ColaboradorUnidades key={unidade.id} unidade={unidade} />
             })}
           </Flex>
         </Flex>

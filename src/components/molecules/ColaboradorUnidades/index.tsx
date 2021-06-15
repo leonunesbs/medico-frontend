@@ -46,7 +46,13 @@ export function ColaboradorUnidades({ unidade }: IColaboradorUnidades.IProps) {
 
   return (
     <Flex flexDir="column" mt={4}>
-      <GradientHeading size="sm" textAlign="left" fontWeight="semibold" mb={2}>
+      <GradientHeading
+        as="h3"
+        size="sm"
+        textAlign="left"
+        fontWeight="semibold"
+        mb={2}
+      >
         <Text
           as="span"
           fontWeight="normal"
@@ -62,6 +68,7 @@ export function ColaboradorUnidades({ unidade }: IColaboradorUnidades.IProps) {
         {groupDates.map((groupDates) => {
           return (
             <ColaboradorAgendasCard
+              key={groupDates.date}
               groupDates={groupDates}
               handleAgendasCollapse={handleAgendasCollapse}
             />

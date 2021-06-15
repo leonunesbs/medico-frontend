@@ -4,11 +4,11 @@ import React from 'react'
 
 export function ColaboradorAgendasCard({
   groupDates,
-  handleAgendasCollapse: handleCollapseHorarios
+  handleAgendasCollapse
 }: IColaboradorAgendasCard.IProps) {
   return (
     <Button
-      onClick={() => handleCollapseHorarios(groupDates.agendas)}
+      onClick={() => handleAgendasCollapse(groupDates.agendas)}
       borderRadius="md"
       flexDir="column"
       h="70px"

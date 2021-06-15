@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { IColaboradorPage } from '@/interfaces'
-import { Colaborador as ColaboradorComponent, Layout } from '@/components'
+import { ColaboradorComponent, Layout } from '@/components'
 import { GetServerSideProps } from 'next'
 import { client } from '@/services/api'
 import { gql } from 'graphql-request'
@@ -29,9 +29,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
                     node {
                       id
                       horario
-                      unidade {
-                        nome
-                      }
                     }
                   }
                 }

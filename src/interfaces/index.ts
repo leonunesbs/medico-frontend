@@ -26,5 +26,5 @@ export type { ISignInHeaderButton } from '@/interfaces/molecules/SignInHeaderBut
 export type { IColaboradorAgendaCollapse } from '@/interfaces/molecules/ColaboradorAgendaCollapse'
 
 export type { IPacientePageTabs } from '@/interfaces/organisms/PacientePageTabs'
-export type { IColaboradorProps } from '@/interfaces/organisms/Colaborador'
+export type { IColaboradorComponentProps } from '@/interfaces/organisms/ColaboradorComponent'
 export type { IColaboradorUnidades } from '@/interfaces/organisms/ColaboradorUnidades'

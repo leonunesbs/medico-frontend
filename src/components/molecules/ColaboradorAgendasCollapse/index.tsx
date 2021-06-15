@@ -36,7 +36,7 @@ export function ColaboradorAgendasCollapse({
         <Wrap justify="center">
           {agendasCollapsed.map((agenda: any) => {
             return (
-              <WrapItem flexGrow={1} maxW="70px">
+              <WrapItem key={agenda.id} flexGrow={1} maxW="70px">
                 <Button
                   borderRadius="md"
                   flexDir="column"
