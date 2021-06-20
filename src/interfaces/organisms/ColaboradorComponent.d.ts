@@ -6,5 +6,6 @@ export declare namespace IColaboradorComponentProps {
     unidades: {
       node: IColaboradorPage.UnidadeProps
     }[]
+    colaborador: IColaboradorPage.ColaboradorProps
   }
 }

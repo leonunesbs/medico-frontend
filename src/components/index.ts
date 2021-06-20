@@ -10,6 +10,7 @@ export {
   HeaderMenuItem,
   Logo,
   MobileCollapseMenu,
+  NovaConsultaTimer,
   SignInHeaderButton,
   UnformCtaInput,
   UnformTextareaInput
@@ -17,13 +18,14 @@ export {
 export {
   CallToAction,
   ColaboradorAgendasCard,
+  ColaboradorAgendasCollapse,
+  ColaboradorUnidades,
   ConsultaTab,
   HeaderMenu,
   IdPacienteCard,
   LoginForm,
   Seo,
-  ColaboradorUnidades,
-  ColaboradorAgendasCollapse
+  PrescricaoTab
 } from '@/components/molecules'
 export {
   ColaboradorComponent,

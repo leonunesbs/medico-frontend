@@ -1,4 +1,5 @@
 import { ConsultaTab } from '@/components'
+import { PrescricaoTab } from '@/components/molecules'
 import { IPacientePageTabs } from '@/interfaces'
 import { getConsultas, getPaciente } from '@/queries'
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
@@ -29,7 +30,7 @@ export const PacientePageTabs: React.FC<IPacientePageTabs.IProps> = ({
   }, [consultaDisplayQtd])
   return (
     <Tabs
-      isLazy
+      // isLazy
       isFitted
       colorScheme="brand"
       boxShadow="base"
@@ -62,7 +63,9 @@ export const PacientePageTabs: React.FC<IPacientePageTabs.IProps> = ({
           />
         </TabPanel>
         <TabPanel>Procedimentos</TabPanel>
-        <TabPanel>Prescrições</TabPanel>
+        <TabPanel>
+          <PrescricaoTab paciente={paciente} />
+        </TabPanel>
         <TabPanel>Agenda</TabPanel>
         <TabPanel>Financeiro</TabPanel>
       </TabPanels>

@@ -5,6 +5,16 @@ export declare namespace IColaboradorPage {
     unidades: {
       node: UnidadeProps
     }[]
+    colaborador: ColaboradorProps
+  }
+
+  interface ColaboradorProps {
+    id: string
+    nome: string
+    ocupacao: string
+    user: {
+      email: string
+    }
   }
 
   interface UnidadeProps {
@@ -20,5 +30,6 @@ export declare namespace IColaboradorPage {
   interface AgendaProps {
     id: string
     horario: string
+    colaborador: ColaboradorProps
   }
 }

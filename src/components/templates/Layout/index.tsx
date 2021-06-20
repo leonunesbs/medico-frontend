@@ -42,14 +42,7 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
   }, [])
 
   return (
-    <Flex
-      id="layout"
-      maxW="100vw"
-      minH="100vh"
-      flexDir="column"
-      overflow="hidden"
-      {...rest}
-    >
+    <Flex id="layout" flexDir="column" overflow="hidden" {...rest}>
       <Seo />
       <Fonts />
       {isHeaded && (
@@ -65,20 +58,22 @@ export const Layout: React.FunctionComponent<ILayout.IProps> = ({
           <Header d={['initial', 'none']} visibility="hidden" />
         </>
       )}
-      <Flex align="center" justify="center" h="100%" w="100%">
+      <Flex align="center" justify="center">
         <Flex
           maxW="1280px"
           flexGrow={1}
-          transition="height 0.5s"
+          transition="height 1s"
           h={animatedHeight}
           overflowY="auto"
         >
           {children}
         </Flex>
       </Flex>
-      <Flex flexDir="column" w="100%" zIndex={40}>
-        {isFootered && <Footer />}
-      </Flex>
+      {isFootered && (
+        <Flex flexDir="column" w="100%" zIndex={40}>
+          <Footer />
+        </Flex>
+      )}
     </Flex>
   )
 }

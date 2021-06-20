@@ -70,7 +70,7 @@ export function LoginForm({ ...rest }: ILoginForm.IProps) {
       onSubmit={handleSubmit(onSubmit)}
       boxShadow="base"
       borderRadius="md"
-      transition="height 0.3s"
+      transition="height 1s"
       justify="center"
       m={[4, 4, 10]}
       p={4}

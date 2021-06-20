@@ -45,7 +45,7 @@ export function ColaboradorUnidades({ unidade }: IColaboradorUnidades.IProps) {
   }, [])
 
   return (
-    <Flex flexDir="column" mt={4}>
+    <Flex flexDir="column" mb={4}>
       <GradientHeading
         as="h3"
         size="sm"

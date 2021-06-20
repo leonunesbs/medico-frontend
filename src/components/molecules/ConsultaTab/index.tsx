@@ -16,12 +16,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   Button,
-  useDisclosure
+  useDisclosure,
+  Select,
+  AlertDialogBody
 } from '@chakra-ui/react'
 import { Form } from '@unform/web'
 import { FormHandles, SubmitHandler } from '@unform/core'
 import { useMutation } from 'react-query'
 import { gql } from 'graphql-request'
+import { useForm } from 'react-hook-form'
 
 import MDEditor from '@uiw/react-md-editor'
 
@@ -32,6 +35,7 @@ import { client, queryClient } from '@/services/api'
 import { GradientHeading, CustomButton, ConsultaCard } from '@/components'
 import { IConsultaTab } from '@/interfaces'
 import { parseCookies } from 'nookies'
+import { NovaConsultaTimer } from '@/components/atoms'
 
 const listener = (ev: any) => {
   ev.preventDefault()
@@ -46,16 +50,15 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
 }) => {
   const formRef = useRef<FormHandles>(null)
 
+  const { register, handleSubmit, reset } = useForm()
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef<any>()
 
   const [consultaStarted, setConsultaStarted] = useState(false)
-  const [consulta, setConsulta] = useState(`
-  ## Anamnese 
-  ...
-  ## Exame físico
-  ...
-    `)
+
+  const [consulta, setConsulta] = useState('')
+
   const { 'medico:token': token } = parseCookies()
   const novaConsulta = useMutation(
     (formData: any) => {
@@ -66,6 +69,7 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
               consulta {
                 id
                 dataConsulta
+                duracaoConsulta
                 colaborador {
                   nome
                 }
@@ -105,16 +109,38 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
     }
   }, [consultaStarted])
 
-  const startConsulta = () => {
-    onOpen()
-  }
-
   const handleNovaConsulta: SubmitHandler = useCallback(() => {
     novaConsulta.mutate({
       pacienteId: paciente.id,
       consulta: consulta
     })
   }, [])
+
+  const startConsulta = () => {
+    onOpen()
+  }
+
+  const handleModelSelect = ({ modelo }: { modelo: string }) => {
+    const modelos: any = {
+      dermatologia: '## Anamnese\n## Exame físico dermatológico\n...',
+      ginecologia: '## Anamnese\n...## Exame físico ginecológico\n...',
+      cardiologia: '## Anamnese\n...## Exame físico cardiológico\n...'
+    }
+    if (!modelo || !modelos[modelo]) {
+      setConsulta(`
+      ## Anamnese 
+      ...
+      ## Exame físico
+      ...
+        `)
+    } else {
+      setConsulta(modelos[modelo])
+    }
+    setConsultaStarted(true)
+    reset()
+    onClose()
+  }
+
   return (
     <Wrap spacing={4}>
       <WrapItem
@@ -126,10 +152,16 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
         h="100%"
       >
         {consultaStarted ? (
-          <>
-            <GradientHeading as="h2" size="sm">
+          <Flex flexDir="column" w="100%">
+            <NovaConsultaTimer
+              handle={{
+                consultaStarted
+              }}
+            />
+            <GradientHeading as="h2" size="sm" textAlign="left">
               Nova consulta
             </GradientHeading>
+
             <Flex flexDir="column" w="100%" mt={2}>
               <Form ref={formRef} onSubmit={handleNovaConsulta}>
                 <Flex
@@ -181,7 +213,7 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
                 </Flex>
               </Form>
             </Flex>
-          </>
+          </Flex>
         ) : (
           <Flex flexDirection="column" p={6} w="100%">
             <CustomButton onClick={startConsulta} w="full">
@@ -196,11 +228,29 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
             >
               <AlertDialogOverlay />
 
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  Iniciar uma nova consulta?
-                </AlertDialogHeader>
+              <AlertDialogContent
+                as="form"
+                onSubmit={handleSubmit(handleModelSelect)}
+              >
+                <AlertDialogHeader>Iniciar uma nova consulta</AlertDialogHeader>
                 <AlertDialogCloseButton />
+                <AlertDialogBody>
+                  <Select
+                    {...register('modelo')}
+                    focusBorderColor="brand.500"
+                    my={2}
+                    borderRadius="full"
+                    boxShadow="base"
+                    size="md"
+                    placeholder="Selecione um modelo"
+                  >
+                    <option value="cardiologia">Cardiologia</option>
+                    <option value="clinica geral">Clínica Geral</option>
+                    <option value="dermatologia">Dermatologia</option>
+                    <option value="ginecologia">Ginecologia</option>
+                    <option value="psiquiatria">Psiquiatria</option>
+                  </Select>
+                </AlertDialogBody>
                 <AlertDialogFooter>
                   <Stack isInline justify="flex-end">
                     <Button
@@ -214,14 +264,7 @@ export const ConsultaTab: React.FC<IConsultaTab.IProps> = ({
                     >
                       Cancelar
                     </Button>
-                    <CustomButton
-                      onClick={() => {
-                        setConsultaStarted(true)
-                        onClose()
-                      }}
-                    >
-                      Iniciar
-                    </CustomButton>
+                    <CustomButton type="submit">Iniciar</CustomButton>
                   </Stack>
                 </AlertDialogFooter>
               </AlertDialogContent>

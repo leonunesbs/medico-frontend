@@ -19,7 +19,10 @@ export type { ICallToAction } from '@/interfaces/CallToAction'
 export type { ICallToActionForm } from '@/interfaces/CallToAction/CallToActionForm'
 export type { ICallToActionButton } from '@/interfaces/CallToAction/CallToActionButton'
 
+export type { INovaConsultaTimer } from '@/interfaces/atoms/NovaConsultaTimer'
+
 export type { IConsultaTab } from '@/interfaces/molecules/ConsultaTab'
+export type { IPrescricaoTab } from '@/interfaces/molecules/PrescricaoTab'
 export type { IIDPacienteCard } from '@/interfaces/molecules/IDPacienteCard'
 export type { ILoginForm } from '@/interfaces/molecules/LoginForm'
 export type { ISignInHeaderButton } from '@/interfaces/molecules/SignInHeaderButton'

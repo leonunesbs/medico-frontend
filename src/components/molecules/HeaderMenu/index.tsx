@@ -28,9 +28,9 @@ export const HeaderMenu: React.FunctionComponent<IHeaderMenu.IProps> = ({
       href: '/'
     },
     {
-      text: 'Agenda',
+      text: 'Agendas',
       isActive: false,
-      href: '/agenda'
+      href: '/agendas'
     },
     {
       text: 'Especialidades',

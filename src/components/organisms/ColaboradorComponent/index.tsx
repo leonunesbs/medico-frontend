@@ -4,7 +4,8 @@ import { Avatar, Circle, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 
 export function ColaboradorComponent({
-  unidades
+  unidades,
+  colaborador
 }: IColaboradorComponentProps.IProps) {
   return (
     <Flex
@@ -32,10 +33,10 @@ export function ColaboradorComponent({
       >
         <Flex flexDir="column" boxShadow="base" borderRadius="md" p={2}>
           <GradientHeading as="h1" textAlign="left">
-            Leonardo Nunes
+            {colaborador.nome}
           </GradientHeading>
           <Text as="h2" fontWeight="semibold" lineHeight={0.8} mb={4}>
-            Generalista
+            {colaborador.ocupacao}
           </Text>
           <Text textAlign="justify">
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -49,12 +50,19 @@ export function ColaboradorComponent({
           <GradientHeading size="md" textAlign="left">
             Agenda
           </GradientHeading>
-          <Flex flexDir="column">
+          <Flex flexDir="column" mt={4}>
             {unidades.map(({ node: unidade }) => {
               if (unidade.agendas.edges.length < 1) {
-                return null
+                return (
+                  <Text as="i">
+                    Não há agendas em {unidade.nome} para os próximos dias.
+                  </Text>
+                )
+              } else {
+                return (
+                  <ColaboradorUnidades key={unidade.id} unidade={unidade} />
+                )
               }
-              return <ColaboradorUnidades key={unidade.id} unidade={unidade} />
             })}
           </Flex>
         </Flex>
