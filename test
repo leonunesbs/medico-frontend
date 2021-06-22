@@ -1,0 +1,25 @@
+curl -X GET \
+  'https://sandbox.api.memed.com.br/v1/sinapse-prescricao/usuarios?api-key=iJGiB4kjDGOLeDFPWMG3no9VnN7Abpqe3w1jEFm6olkhkZD6oSfSmYCm&secret-key=Xe8M5GvBGCr4FStKfxXKisRo3SfYKI7KrTMkJpCAstzu2yXVN4av5nmL' \
+  -H 'Accept: application/vnd.api+json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -d '{
+        "data": {
+         "type": "usuarios",
+          "attributes": {
+              "external_id": "leonunesbs",
+              "nome": "Leonardo",
+              "sobrenome": "Nunes"
+          }
+        }
+ }'
+
+
+
+ curl -X GET \
+  'https://sandbox.api.memed.com.br/v1/sinapse-prescricao/usuarios/leonunesbs?api-key=iJGiB4kjDGOLeDFPWMG3no9VnN7Abpqe3w1jEFm6olkhkZD6oSfSmYCm&secret-key=Xe8M5GvBGCr4FStKfxXKisRo3SfYKI7KrTMkJpCAstzu2yXVN4av5nmL' \
+  -H 'Accept: application/vnd.api+json'
+
+
+
+  

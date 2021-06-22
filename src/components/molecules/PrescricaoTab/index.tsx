@@ -4,73 +4,60 @@ import { Text, Flex, Wrap, WrapItem } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 
 export function PrescricaoTab({ paciente, ...rest }: IPrescricaoTab.IProps) {
-  const buttonRef = React.useRef(null)
+  // const handleStart = () => {
+  //   window.MdHub.command
+  //     .send('plataforma.prescricao', 'setPaciente', {
+  //       // Pode ser um documento criptografado do paciente, por exemplo
+  //       // Usamos essa propriedade para destinguir nomes iguais
+  //       // (obrigatório)
+  //       idExterno: paciente.id,
 
-  const patient = {
-    name: 'LEONARDO NUNES BEZERRA SOUZA',
-    address: {
-      streetAddress: 'Rua Aristides Saraiva de Almeida',
-      city: 'Teresina'
-    },
-    phoneNumber: '86981312488',
-    height: 185,
-    identityDocument: '20082285033'
-  }
+  //       // Nome do paciente (obrigatório)
+  //       nome: paciente.nome,
 
-  const handleStart = () => {
-    window.MdHub.command
-      .send('plataforma.prescricao', 'setPaciente', {
-        // Pode ser um documento criptografado do paciente, por exemplo
-        // Usamos essa propriedade para destinguir nomes iguais
-        // (obrigatório)
-        idExterno: paciente.id,
+  //       // Endereço do paciente (opcional)
+  //       endereco: 'Rua da Saúde, 123',
 
-        // Nome do paciente (obrigatório)
-        nome: paciente.nome,
+  //       // Cidade do paciente (opcional)
+  //       cidade: 'São Paulo',
 
-        // Endereço do paciente (opcional)
-        endereco: 'Rua da Saúde, 123',
+  //       // Telefone celular (obrigatório, DDD + digitos, somente números. NÃO ENVIAR PREFIXO "+55")
+  //       telefone: '11999999999',
 
-        // Cidade do paciente (opcional)
-        cidade: 'São Paulo',
+  //       // Usado no receituário de alto custo (Opcional)
+  //       peso: 75,
 
-        // Telefone celular (obrigatório, DDD + digitos, somente números. NÃO ENVIAR PREFIXO "+55")
-        telefone: '11999999999',
+  //       // Usado no receituário de alto custo (Opcional)
+  //       altura: 1.8,
 
-        // Usado no receituário de alto custo (Opcional)
-        peso: 75,
+  //       // Usado no receituário de alto custo (Opcional)
+  //       nome_mae: 'Nome da mãe',
 
-        // Usado no receituário de alto custo (Opcional)
-        altura: 1.8,
+  //       // Usado no receituário de alto custo (Opcional)
+  //       dificuldade_locomocao: false
+  //     })
+  //     .then(() => {
+  //       window.MdHub.module.show('plataforma.prescricao')
+  //     })
+  // }
 
-        // Usado no receituário de alto custo (Opcional)
-        nome_mae: 'Nome da mãe',
+  // const review = () => {
+  //   window.MdHub.command.send('plataforma.prescricao', 'viewPrescription', 9140)
+  // }
 
-        // Usado no receituário de alto custo (Opcional)
-        dificuldade_locomocao: false
-      })
-      .then(() => {
-        window.MdHub.module.show('plataforma.prescricao')
-      })
-  }
-
-  const review = () => {
-    window.MdHub.command.send('plataforma.prescricao', 'viewPrescription', 9140)
-  }
-
-  useEffect(() => {
-    window.MdSinapsePrescricao.event.add(
-      'core:moduleInit',
-      function (moduleData) {
-        if (moduleData.name === 'plataforma.prescricao') {
-          // O módulo da prescrição foi iniciado.
-          MdHub.event.add('prescricaoImpressa', function (prescriptionData) {
-            console.log(prescriptionData)
-          })
-        }
-      }
-    )
-  }, [])
+  // useEffect(() => {
+  //   window.MdSinapsePrescricao.event.add(
+  //     'core:moduleInit',
+  //     function (moduleData) {
+  //       if (moduleData.name === 'plataforma.prescricao') {
+  //         // O módulo da prescrição foi iniciado.
+  //         MdHub.event.add('prescricaoImpressa', function (prescriptionData) {
+  //           console.log(prescriptionData)
+  //         })
+  //       }
+  //     }
+  //   )
+  // }, [])
 
   return (
     <Wrap spacing={4}>
@@ -83,10 +70,16 @@ export function PrescricaoTab({ paciente, ...rest }: IPrescricaoTab.IProps) {
         h="100%"
       >
         <Flex flexDirection="column" p={6} w="100%">
-          <CustomButton onClick={handleStart} w="full">
+          <CustomButton
+            // onClick={handleStart}
+            w="full"
+          >
             Nova prescrição
           </CustomButton>
-          <CustomButton onClick={review} w="full">
+          <CustomButton
+            // onClick={review}
+            w="full"
+          >
             Visualizar
           </CustomButton>
         </Flex>
