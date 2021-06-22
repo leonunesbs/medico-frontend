@@ -8,6 +8,7 @@ export {
   HamburgerMenu,
   HeaderLogo,
   HeaderMenuItem,
+  HeadPwa,
   Logo,
   MobileCollapseMenu,
   NovaConsultaTimer,
@@ -24,8 +25,8 @@ export {
   HeaderMenu,
   IdPacienteCard,
   LoginForm,
-  Seo,
-  PrescricaoTab
+  PrescricaoTab,
+  Seo
 } from '@/components/molecules'
 export {
   ColaboradorComponent,

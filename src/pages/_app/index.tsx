@@ -10,6 +10,7 @@ import * as gtag from '@/utils/gtag'
 import { QueryClientProvider } from 'react-query'
 import { queryClient } from '@/services/api'
 import { AuthProvider } from '@/contexts/AuthContext'
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -26,13 +27,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events])
 
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <ChakraProvider theme={theme}>
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </QueryClientProvider>
-    </AuthProvider>
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
+      </Head>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <ChakraProvider theme={theme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </QueryClientProvider>
+      </AuthProvider>
+    </>
   )
 }
 

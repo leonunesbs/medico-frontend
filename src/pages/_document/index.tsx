@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { GA_TRACKING_ID } from '@/utils/gtag'
+import { HeadPwa } from '@/components'
 
 export default class MyDocument extends Document {
   render() {
@@ -24,6 +25,7 @@ export default class MyDocument extends Document {
             }}
           />
           <link rel="canonical" href="https://medico.leonunesbs.com.br" />
+          <HeadPwa />
         </Head>
         <body>
           <Main />
