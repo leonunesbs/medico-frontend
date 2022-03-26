@@ -48,8 +48,8 @@
     "react-query": "3.16.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "12.1.1",
-    "@commitlint/config-conventional": "12.1.1",
+    "@commitlint/cli": "12.1.4",
+    "@commitlint/config-conventional": "12.1.4",
     "@types/cookies": "0.7.6",
     "@types/graphql": "14.5.0",
     "@types/gtag.js": "0.0.4",
