@@ -61,7 +61,7 @@
     "@types/react-query": "1.2.9",
     "@typescript-eslint/eslint-plugin": "4.22.1",
     "@typescript-eslint/parser": "4.22.1",
-    "commitizen": "4.2.3",
+    "commitizen": "4.2.4",
     "cookie": "0.4.1",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "7.25.0",
